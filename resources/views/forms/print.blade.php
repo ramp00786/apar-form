@@ -87,6 +87,23 @@
         .page-break {
             page-break-before: always;
         }
+
+        .page-number {
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
         
         @media print {
             body { margin: 0; }
@@ -131,6 +148,33 @@
             min-height: 50px;
             padding: 5px;
         }
+        
+        .assessment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        
+        .assessment-table td, .assessment-table th {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        
+        .assessment-table th {
+            background: #f0f0f0;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .assessment-table .text-center {
+            text-align: center;
+        }
+        .roman-list li{
+            list-style-type: lower-roman;
+            padding-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -159,7 +203,8 @@
             <h1>INDIAN INSTITUTE OF TROPICAL METEOROLOGY, PUNE</h1>
         </div>
 
-        <!-- PART-1 -->
+        <!-- Page 2: PART-1 -->
+        <div class="page-number">-2-</div>
         <div class="part-title">PART-1</div>
         <div class="part-subtitle">(The information should be furnished by the Administration/Custodian)</div>
         <div class="part-subtitle">(Identification Information)</div>
@@ -168,13 +213,13 @@
             <ol>
                 <li>Name of the Employee: <strong>{{ $form->employee_name }}</strong></li>
                 <li>Designation: <strong>{{ $form->designation }}</strong></li>
-                <li>Employee ID: <strong>{{ $form->employee_id }}</strong></li>
-                <li>Date of Birth: <strong>{{ $form->date_of_birth->format('d/m/Y') }}</strong></li>
-                <li>Section or Group: <strong>{{ $form->section_or_group }}</strong></li>
-                <li>Area of Specialization: <strong>{{ $form->area_of_specialization }}</strong></li>
-                <li>Date of Joining to the Post: <strong>{{ $form->date_of_joining->format('d/m/Y') }}</strong></li>
-                <li>E-mail ID: <strong>{{ $form->email }}</strong></li>
-                <li>Mobile No.: <strong>{{ $form->mobile_no }}</strong></li>
+                <li>Employee ID: <strong>{{ $form->employee_id ?: 'N/A' }}</strong></li>
+                <li>Date of Birth: <strong>{{ $form->date_of_birth ? $form->date_of_birth->format('d/m/Y') : 'N/A' }}</strong></li>
+                <li>Section or Group: <strong>{{ $form->section_or_group ?: 'N/A' }}</strong></li>
+                <li>Area of Specialization: <strong>{{ $form->area_of_specialization ?: 'N/A' }}</strong></li>
+                <li>Date of Joining to the Post: <strong>{{ $form->date_of_joining ? $form->date_of_joining->format('d/m/Y') : 'N/A' }}</strong></li>
+                <li>E-mail ID: <strong>{{ $form->email ?: 'N/A' }}</strong></li>
+                <li>Mobile No.: <strong>{{ $form->mobile_no ?: 'N/A' }}</strong></li>
                 <li>Year Of the Report: <strong>{{ $form->report_year }}</strong></li>
                 @if($form->department)
                 <li>Department: <strong>{{ $form->department }}</strong></li>
@@ -280,7 +325,8 @@
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- PART-2 -->
+        <!-- Page 3: Part-2 -->
+        <div class="page-number">-3-</div>
         <div class="part-title">Part-2</div>
         <div class="part-subtitle">To be filled in by the Scientist reported upon</div>
         <div class="part-subtitle">(Please read carefully the instructions before filling the entries)</div>
@@ -308,7 +354,7 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="page-number">-4-</div>
         <div>
             <strong>3. Please state briefly about major publications/reports/Technology transferred/patents filed/projects managed/social outreach activities/manpower trained not exceeding in 100 word.</strong>
             <table class="form-table">
@@ -358,8 +404,16 @@
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- PART-3 -->
-        <div class="part-title">PART-3</div>
+    
+
+        
+
+        <!-- Page Break -->
+        <div class="page-break"></div>
+
+        <!-- Page 5: PART-3 -->
+        <div class="page-number">-5-</div>
+        <div class="part-title">PART-3 (Name of theEmployee__________________________)</div>
         <div class="part-subtitle">Numerical grading is to be awarded by reporting and reviewing authority which should be on a scale of 1-10 where 1 refers to the lowest grade and 10 to the highest.</div>
         <div class="part-subtitle">(Please read carefully the guidelines before filling entries)</div>
         
@@ -459,84 +513,92 @@
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- PART-4 -->
-        <div class="part-title">PART-4</div>
-        <div class="part-subtitle">GENERAL</div>
+        <!-- Page 6: PART-4 -->
+        <div class="page-number">-6-</div>
+        <div class="part-title text-center">GENERAL</div>
+        <div class="part-title text-center"><strong>PART-4</strong></div>
 
-        <div>
+        <div style="margin: 20px 0;">
             <strong>1. Relation with the public (wherever applicable)</strong>
-            <p>(Please comment on the Scientist accessibility to the public and responsiveness to their needs)</p>
+            <p><em>(Please comment on the Scientist accessibility to the public and responsiveness to their needs)</em></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 200px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 200px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['relation_with_public'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <div>
+        <div style="margin: 20px 0;">
             <strong>2. Training</strong>
-            <p>(Please give recommendation for training with a view to further improving the effectiveness and capabilities of the Scientist)</p>
+            <p><em>(Please give recommendation for training with a view to further improving the effectiveness and capabilities of the Scientist)</em></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 200px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 150px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['training_recommendation'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <div>
+        <div style="margin: 20px 0;">
             <strong>3. State of Health</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 100px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['state_of_health'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <div>
+        <!-- Page Break -->
+        <div class="page-break"></div>
+
+        <!-- Page 7: Continuing PART-4 -->
+        <div class="page-number">-7-</div>
+
+        <div style="margin: 20px 0;">
             <strong>4. Integrity</strong>
-            <p>(Please comment on the integrity of the Scientist)</p>
+            <p><em>(Please comment on the integrity of the Scientist)</em></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 100px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['integrity_assessment'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <div>
+        <div style="margin: 30px 0;">
             <strong>5. Pen Picture by Reporting Officer (in about 100words) on the overall qualities of the Scientist including area of strengths and lesser strength extraordinary achievements, scientific & technical achievements (refer 3 of Part 2) and attitude towards weaker section.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 200px; padding: 10px;">{{ $formData['part_b']['innovative_summary'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 200px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['pen_picture_reporting'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <div>
+        <div style="margin: 30px 0;">
             <strong>6. Overall numerical grading on the basis of weightage given in Section A, B and C in Part -3 of the Report.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 80px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 120px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['overall_numerical_grading'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <div style="margin-top: 40px;">
-            <p>Place:</p>
-            <p>Date:</p>
-            <br>
+        <div style="margin-top: 60px;">
+            <p>Place: _______________________</p>
+            <p>Date: _______________________</p>
+            <br><br>
             <div class="signature-section">
                 <p><strong>Signature of Reporting Officer</strong></p>
-                <br>
-                <p style="margin-left: 150px;">Name of Block Letter:</p>
-                <p style="margin-left: 150px;">Designation:</p>
-                <p style="margin-left: 150px;">During the period of report:</p>
+                <br><br>
+                <p><strong>Name (in Block Letters): _________________________________</strong></p>
+                <p><strong>Designation: _________________________________________</strong></p>
+                <p><strong>During the period of report: ____________________________</strong></p>
             </div>
         </div>
 
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- PART-5 -->
+        <!-- Page 8: PART-5 -->
+        <div class="page-number">-8-</div>
         <div class="part-title">PART-5</div>
 
         <div>
@@ -558,8 +620,8 @@
                     <td class="text-center">No</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px;">{{ ($formData['part_b']['agree_evaluation'] ?? '') == 'yes' ? '✓' : '' }}</td>
-                    <td style="height: 30px;">{{ ($formData['part_b']['agree_evaluation'] ?? '') == 'no' ? '✓' : '' }}</td>
+                    <td style="height: 30px; text-align: center;">{{ ($formData['part_5']['agree_with_reporting_officer'] ?? '') == 'yes' ? '✓' : '' }}</td>
+                    <td style="height: 30px; text-align: center;">{{ ($formData['part_5']['agree_with_reporting_officer'] ?? '') == 'no' ? '✓' : '' }}</td>
                 </tr>
             </table>
         </div>
@@ -568,7 +630,7 @@
             <strong>3. In case of disagreement please specify the reason, is there anything you wish to modify or add.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td class="medium-text-area">{{ $formData['part_b']['exceptional_contribution'] ?? '' }}</td></tr>
+                    <tr><td class="medium-text-area">{{ $formData['part_5']['disagreement_reason'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -577,14 +639,19 @@
             <strong>4. Pen Picture by Reviewing Officer, please comment (in about 100words) on the overall qualities of the Scientist including area of strengths and lesser strength scientific & technical achievements and attitude towards weaker section.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td class="large-text-area">{{ $formData['part_5']['overall_assessment'] ?? '' }}</td></tr>
+                    <tr><td class="large-text-area">{{ $formData['part_5']['pen_picture_reviewing'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
         <div>
             <strong>5. Overall numerical grading on the basis of weightage given in Section A, B and C in Part -3 the Report.</strong>
-            <p><strong>Numerical Grading: {{ $formData['part_5']['numerical_grading'] ?? '' }}/10</strong></p>
+            <table class="form-table">
+                <tbody>
+                    <tr><td class="large-text-area">{{ $formData['part_5']['overall_numerical_grading_reviewing'] ?? '' }}</td></tr>
+                </tbody>
+            </table>
+            
         </div>
 
         <div style="margin-top: 40px;">
@@ -594,25 +661,25 @@
             <div class="signature-section">
                 <p><strong>Signature of Reviewing Officer</strong></p>
                 <br>
-                <p style="margin-left: 150px;">Officer Name of Block Letter:</p>
-                <p style="margin-left: 150px;">Designation:</p>
-                <p style="margin-left: 150px;">The period of report:</p>
+                <p style="margin-left: 150px;">Officer Name of Block Letter:_______________________</p>
+                <p style="margin-left: 150px;">Designation:_______________________</p>
+                <p style="margin-left: 150px;">The period of report:_______________________</p>
             </div>
         </div>
 
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- PART-B -->
-        <div class="part-title">PART-B</div>
-        <div class="part-subtitle">ANNUAL WORK REPORT</div>
+        <!-- Page 9: ANNUAL WORK REPORT (Self-Assessment) -->
+        <div class="page-number">-9-</div>
+        <div class="part-title">ANNUAL WORK REPORT</div>
         <div class="part-subtitle"><u>Self-Assessment by the officer reported upon</u></div>
 
         <div class="section-list">
             <ol>
                 <li><strong>Name: {{ $form->employee_name }}</strong></li>
                 <li><strong>Designation: {{ $form->designation }}</strong></li>
-                <li><strong>Area of S&T function: {{ $form->area_of_specialization }}</strong></li>
+                <li><strong>Area of S&T function: {{ $form->area_of_specialization ?: 'N/A' }}</strong></li>
             </ol>
         </div>
 
@@ -631,20 +698,23 @@
             <p><strong>4. b. S&T content of the work done:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">{{ $formData['part_b']['scientific_work_assessment'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;</td></tr>
                 </tbody>
             </table>
 
             <p><strong>4. c. Innovation content of the work done:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">{{ $formData['part_b']['innovative_summary'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
 
         <!-- Page Break -->
         <div class="page-break"></div>
+
+        <!-- Page 10: Continuing Self-Assessment -->
+        <div class="page-number">-10-</div>
 
         <div>
             <strong>5. Brief Description of evaluation parameters related to the officer's work function as given in the Appendix:</strong>
@@ -678,179 +748,235 @@
             <br>
             <div class="signature-section">
                 <p><strong>Signature of the Officer</strong></p>
-                <p><strong>{{ $form->employee_name }}</strong></p>
+            </div>
+            <div style="text-align: right; margin-left:0px">
+                <p><strong>Name: ____________________________</strong></p>
+                <p><strong>Designation: ____________________________</strong></p>
             </div>
         </div>
 
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- PART-C -->
-        <div class="part-title">PART-C</div>
-        <div class="part-subtitle">ACCEPTANCE BY THE HEAD OF OFFICE/INSTITUTE</div>
+        <!-- Page 11: Part-B (Assessment by Reporting Authority) -->
+        <div class="page-number">-11-</div>
+        <div class="part-title">Part-B (Name of Employee: {{ $form->employee_name }})</div>
+        <div class="part-subtitle"><u>ASSESSMENT BY THE REPORTING AUTHORITY</u></div>
 
         <div>
-            <p>I have gone through the self-assessment report submitted by Shri/Smt/Dr. <strong>{{ $form->employee_name }}</strong> and certify that:</p>
-        </div>
-
-        <div>
+            <strong>1. Do you agree with the evaluation parameters suggested by the Officer?</strong>
             <table class="form-table">
                 <tbody>
-                    <tr>
-                        <td style="width: 5%; text-align: center;">1.</td>
-                        <td style="width: 85%;">The facts stated are correct to the best of my knowledge.</td>
-                        <td style="width: 10%; text-align: center;">Yes/No</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">2.</td>
-                        <td>The achievements claimed are reasonable and justified.</td>
-                        <td style="text-align: center;">Yes/No</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;">3.</td>
-                        <td>The officer has satisfactorily completed the assigned work during the period under report.</td>
-                        <td style="text-align: center;">Yes/No</td>
-                    </tr>
+                    <tr><td style="min-height: 80px; padding: 10px;">{{ $formData['part_b']['agree_evaluation'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
         <div>
-            <strong>Additional Comments (if any):</strong>
+            <strong>2. Short summary of the innovative content of the work done</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 150px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 80px; padding: 10px;">{{ $formData['part_b']['innovative_summary'] ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
 
-        <div style="margin-top: 40px;">
-            <p>Date: ________________</p>
-            <p>Place: ________________</p>
-            <br>
-            <div class="signature-section">
-                <p><strong>Signature of Head of Office/Institute</strong></p>
-                <br>
-                <p style="margin-left: 150px;">Name: ________________________</p>
-                <p style="margin-left: 150px;">Designation: __________________</p>
+        <div>
+            <strong>3. Please also indicate the exceptional contribution of the Officer for which he can be considered under exceptionally meritorious category.</strong>
+            <table class="form-table">
+                <tbody>
+                    <tr><td style="min-height: 80px; padding: 10px;">{{ $formData['part_b']['exceptional_contribution'] ?? '' }}</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <strong>4. Overall assessment of the scientific work</strong>
+            <table class="assessment-table">
+                <thead>
+                    <tr>
+                        <th style="width: 8%;">SL No.</th>
+                        <th style="width: 40%;">Brief Description of the parameter on which the officer has to be evaluated</th>
+                        <th style="width: 26%;">Marks given By the reporting authority</th>
+                        <th style="width: 26%;">Maximum marks of each sub parameter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for($i = 1; $i <= 5; $i++)
+                    <tr>
+                        <td class="text-center"><strong>{{ $i }}.</strong></td>
+                        <td>
+                            <div><strong>Parameter:</strong> ___________________</div>
+                            <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                            <div>a.</div><div>b.</div><div>c.</div><div>d.</div><div>e.</div>
+                        </td>
+                        <td class="text-center">{{ $formData['part_b']['param' . $i . '_marks'] ?? '' }}</td>
+                        <td class="text-center">{{ $formData['part_b']['param' . $i . '_max_marks'] ?? '' }}</td>
+                    </tr>
+                    @endfor
+                    <tr style="background-color: #fff2cc;">
+                        <td></td>
+                        <td><strong>Total Marks Obtained</strong></td>
+                        <td class="text-center"><strong>{{ $formData['part_b']['total_marks_obtained'] ?? '' }}</strong></td>
+                        <td class="text-center"><strong>{{ $formData['part_b']['total_max_marks'] ?? '' }}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 40px; text-align: right;">
+            <div style="margin-bottom: 40px;">
+                <strong>Signature of the Reporting officer</strong>
+            </div>
+            <div style="text-align: right; margin-left:0px">
+                <div><strong>Name:</strong> ________________________</div>
+                <div style="margin-top: 8px;"><strong>Designation:</strong> ________________________</div>
             </div>
         </div>
 
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- APPENDIX -->
-        <div class="part-title">APPENDIX</div>
-        <div class="part-subtitle">EVALUATION PARAMETERS FOR SCIENTIFIC & TECHNICAL PERSONNEL</div>
-
+        <!-- Page 12: Parameters for Evaluation (Appendix) -->
+        <div class="page-number">-12-</div>
+        
         <div>
-            <strong>A. RESEARCH AND DEVELOPMENT (R&D)</strong>
-            <table class="evaluation-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">Sr. No.</th>
-                        <th style="width: 70%;">Parameter</th>
-                        <th style="width: 20%;">Max Marks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Quality research publications in peer reviewed journals</td><td>5</td></tr>
-                    <tr><td>2</td><td>Books/Monographs authored</td><td>5</td></tr>
-                    <tr><td>3</td><td>Patents filed/granted</td><td>5</td></tr>
-                    <tr><td>4</td><td>Technology transferred/commercialized</td><td>5</td></tr>
-                    <tr><td>5</td><td>Research projects completed/ongoing</td><td>5</td></tr>
-                </tbody>
-            </table>
+            <strong>Parameters for Evaluation (Officer reported can choose at least twenty sub parameters given below) in consultation with the Reporting Officer</strong>
         </div>
 
         <div>
-            <strong>B. ACADEMIC ACTIVITIES</strong>
-            <table class="evaluation-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">Sr. No.</th>
-                        <th style="width: 70%;">Parameter</th>
-                        <th style="width: 20%;">Max Marks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Lectures delivered at conferences/seminars</td><td>5</td></tr>
-                    <tr><td>2</td><td>Training programs conducted</td><td>5</td></tr>
-                    <tr><td>3</td><td>Thesis guidance (Ph.D./M.Tech/M.Sc.)</td><td>5</td></tr>
-                    <tr><td>4</td><td>Course curriculum development</td><td>5</td></tr>
-                    <tr><td>5</td><td>International collaborations</td><td>5</td></tr>
-                </tbody>
-            </table>
+            <strong>1. S&T Management/S&T Policy Product/Scientific and Technological Aspects</strong>
+            <ul style="margin-left: 20px;">
+                <li>Extra and Intra mural R&D projects handled/executed/monitored</li>
+                <li>Scientific Notes/Reports/database created/managed/handled</li>
+                <li>S&T scheme or projects handled/launched/implemented/facilitated/managed</li>
+                <li>S&T manuals/brochures/technology status report prepared</li>
+                <li>S&T cooperation with other countries facilitated</li>
+                <li>Signing of domestic/international MOU facilitated</li>
+                <li>SFC/EFC/Cabinet Notes/Projects/Schemes prepared</li>
+                <li>Technology Intelligence/foresight/assessment reports prepared</li>
+                <li>Drafting/review of National/International standards for products/process</li>
+                <li>Preparation of field report/observational data etc.</li>
+                <li>Output/Outcomes of Research Projects generated</li>
+                <li>Management of Scientific Resources</li>
+            </ul>
         </div>
 
         <div>
-            <strong>C. SERVICES TO PROFESSION AND SOCIETY</strong>
-            <table class="evaluation-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">Sr. No.</th>
-                        <th style="width: 70%;">Parameter</th>
-                        <th style="width: 20%;">Max Marks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Editorial board membership of journals</td><td>5</td></tr>
-                    <tr><td>2</td><td>Reviewer for journals/projects</td><td>5</td></tr>
-                    <tr><td>3</td><td>Professional society activities</td><td>5</td></tr>
-                    <tr><td>4</td><td>Awards and recognition received</td><td>5</td></tr>
-                    <tr><td>5</td><td>Social outreach activities</td><td>5</td></tr>
-                </tbody>
-            </table>
+            <strong>2. Knowledge Product</strong>
+            <ul style="margin-left: 20px;">
+                <li>Publications and invited lectures</li>
+                <li>Patent/IPR documentation/copyrights/designs</li>
+                <li>Output/Outcome Analysis for strategic S&T planning</li>
+                <li>Development/Improvement of new/existing laboratory analytical method</li>
+                <li>Development/Improvement of new/existing mathematical/statistical/dynamical models</li>
+                <li>Preparation of data/meta data standards</li>
+                <li>Development of Algorithms for IT solutions</li>
+                <li>Development of convergent technology solutions</li>
+                <li>Design and documentation of application software</li>
+                <li>Preparation of technology status report</li>
+            </ul>
         </div>
 
         <div>
-            <strong>D. ADMINISTRATIVE RESPONSIBILITIES</strong>
-            <table class="evaluation-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">Sr. No.</th>
-                        <th style="width: 70%;">Parameter</th>
-                        <th style="width: 20%;">Max Marks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Committee memberships and contributions</td><td>5</td></tr>
-                    <tr><td>2</td><td>Leadership roles in projects/initiatives</td><td>5</td></tr>
-                    <tr><td>3</td><td>Resource mobilization activities</td><td>5</td></tr>
-                    <tr><td>4</td><td>Institutional development contributions</td><td>5</td></tr>
-                    <tr><td>5</td><td>Policy formulation participation</td><td>5</td></tr>
-                </tbody>
-            </table>
+            <strong>3. S&T Economic Product</strong>
+            <ul style="margin-left: 20px;">
+                <li>Technology Developed/Facilitated</li>
+                <li>Technology transferred/ licensed/ commercialized</li>
+                <li>Consultancy projects carried out/income generated/ EMR grants receipt</li>
+                <li>Licensing Fee/Income catalysed/facilitated</li>
+                <li>Start-ups created</li>
+                <li>Incubation facilities created</li>
+                <li>Technical services/Calibration implemented/facilitated</li>
+                <li>Maintenance and upgradation of observational and Computational networks</li>
+                <li>Capacity building</li>
+                <li>Delivery of statutory/promotional services to industry</li>
+                <li>Cost cutting Measures Implemented</li>
+            </ul>
         </div>
 
         <div>
-            <strong>E. INNOVATION AND ENTREPRENEURSHIP</strong>
-            <table class="evaluation-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">Sr. No.</th>
-                        <th style="width: 70%;">Parameter</th>
-                        <th style="width: 20%;">Max Marks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Innovative solutions developed</td><td>5</td></tr>
-                    <tr><td>2</td><td>Start-up incubation activities</td><td>5</td></tr>
-                    <tr><td>3</td><td>Industry partnerships established</td><td>5</td></tr>
-                    <tr><td>4</td><td>New methodologies/techniques developed</td><td>5</td></tr>
-                    <tr><td>5</td><td>Commercialization of research outputs</td><td>5</td></tr>
-                </tbody>
-            </table>
+            <strong>4. Capacity building and Promotion of S&T</strong>
+            <ul style="margin-left: 20px;">
+                <li>HRD schemes managed/handled</li>
+                <li>Skill Development/Rural development Programme implemented</li>
+                <li>Technology field demonstration/entrepreneurship Training carried out</li>
+                <li>Science education/Knowledge dissemination</li>
+                <li>Training course designed and developed including capacity building</li>
+                <li>PhD/MTech/Msc Students guided/trained</li>
+            </ul>
         </div>
 
-        <div style="margin-top: 30px;">
-            <p><strong>Note:</strong> The officer should select at least 20 sub-parameters from the above five broad categories, each carrying 5 marks, for a total of 100 marks. The selection should be relevant to the officer's work function and responsibilities.</p>
+        <div>
+            <strong>5. S&T Services and Outreach activities</strong>
+            <ul style="margin-left: 20px;">
+                <li>Outreach materials of R&D outputs disseminated</li>
+                <li>Artisanal training/Skill Development Initiatives taken</li>
+                <li>Grass root S&T related actions Technology adapted for local needs</li>
+                <li>Participation in field survey, data collection, scientific exploration</li>
+                <li>Laboratory Accreditation, Good Laboratory Practice</li>
+                <li>Inspection survey, R&D Service</li>
+                <li>Weather, Climate, Ocean, Seismological and Cryospheric services</li>
+                <li>Environmental impact appraisals, Natural wealth and Hazard Assessment</li>
+                <li>Testing and calibration service carried out</li>
+                <li>Design/development of regulatory framework</li>
+                <li>Software/hardware/electronic products deployed/developed</li>
+                <li>Good Manufacturing Practices</li>
+                <li>Projects planning/monitoring/evaluation</li>
+                <li>Maintenance and enhancement of e-Governance Projects</li>
+                <li>Design, development and hosting of portals, web applications and websites for information/dissemination</li>
+                <li>Management and prevention of security threats/vulnerabilities in Cyber Space</li>
+                <li>Monitoring systems for implementation of Government Schemes and dissemination to public using ICT Tools</li>
+            </ul>
         </div>
+
+
+        <div>
+            <p>
+                *Any other parameter not included above but included in the as S&T Output/Indicator in Annexure-II titled as “Criteria for identifying S&T Agencies/Organisations for implementation of Revised Flexible Complementing Scheme”.
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <strong>*Guidelines regarding filling up of APAR with numerical grading*</strong>
+            </p>
+        </div>
+
+        <div>
+            <ul class="roman-list">
+                <li>
+                    The columns in the APAR should be filled in with due care and attention and after devoting adequate time.
+                </li>
+                <li>
+                    It is expected that any grading of 1 or 2 (against work output or attributes or overall grade) would be adequately justified with respect to specific accomplishments. Grades of 1-2 or 9-10 are expected to be rare occurrence sand hence the need to justify them. In awarding a numerical grade the reporting and reviewing authorities should rate the Scientist against a larger population of His/Her peers that may be currently working under them.
+                </li>
+                <li>
+                    APARs graded between 8&10 will be rates as “Outstanding” and will be given a score of 9 for the purpose of calculating average scores for Promotion/Up-gradation under the Scheme.
+                </li>
+                <li>
+                    APARs graded between 6 and short of 8 will be rated as “Very Good” and will be given a score of 7.
+                </li>
+                <li>
+                    APARs graded between 4 and short of 6 will be rated as “Good” and will be given a score of 5.
+                </li>
+                <li>
+                    APARs graded below 4 will be given a score of “Zero”.
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <p>
+                **********
+            </p>
+        </div>
+
+
     </div>
+    
 
-    <script>
-        // Auto print when page loads (optional)
-        // window.onload = function() { window.print(); }
-    </script>
+    
 </body>
 </html>
+        

@@ -54,8 +54,8 @@
 
                             <!-- Employee ID -->
                             <div>
-                                <label for="employee_id" class="block text-sm font-semibold text-gray-700 mb-1">Employee ID <span class="text-red-500">*</span></label>
-                                <input type="text" name="employee_id" id="employee_id" required
+                                <label for="employee_id" class="block text-sm font-semibold text-gray-700 mb-1">Employee ID</label>
+                                <input type="text" name="employee_id" id="employee_id"
                                     class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
                                     value="{{ old('employee_id') }}">
                                 @error('employee_id')
@@ -65,8 +65,8 @@
 
                             <!-- Date of Birth -->
                             <div>
-                                <label for="date_of_birth" class="block text-sm font-semibold text-gray-700 mb-1">Date of Birth <span class="text-red-500">*</span></label>
-                                <input type="date" name="date_of_birth" id="date_of_birth" required
+                                <label for="date_of_birth" class="block text-sm font-semibold text-gray-700 mb-1">Date of Birth</label>
+                                <input type="date" name="date_of_birth" id="date_of_birth"
                                     class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
                                     value="{{ old('date_of_birth') }}">
                                 @error('date_of_birth')
@@ -76,8 +76,8 @@
 
                             <!-- Section or Group -->
                             <div>
-                                <label for="section_or_group" class="block text-sm font-semibold text-gray-700 mb-1">Section or Group <span class="text-red-500">*</span></label>
-                                <input type="text" name="section_or_group" id="section_or_group" required
+                                <label for="section_or_group" class="block text-sm font-semibold text-gray-700 mb-1">Section or Group</label>
+                                <input type="text" name="section_or_group" id="section_or_group"
                                     class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
                                     value="{{ old('section_or_group') }}">
                                 @error('section_or_group')
@@ -87,8 +87,8 @@
 
                             <!-- Area of Specialization -->
                             <div>
-                                <label for="area_of_specialization" class="block text-sm font-semibold text-gray-700 mb-1">Area of Specialization <span class="text-red-500">*</span></label>
-                                <input type="text" name="area_of_specialization" id="area_of_specialization" required
+                                <label for="area_of_specialization" class="block text-sm font-semibold text-gray-700 mb-1">Area of Specialization</label>
+                                <input type="text" name="area_of_specialization" id="area_of_specialization"
                                     class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
                                     value="{{ old('area_of_specialization') }}">
                                 @error('area_of_specialization')
@@ -98,8 +98,8 @@
 
                             <!-- Date of Joining -->
                             <div>
-                                <label for="date_of_joining" class="block text-sm font-semibold text-gray-700 mb-1">Date of Joining to the Post <span class="text-red-500">*</span></label>
-                                <input type="date" name="date_of_joining" id="date_of_joining" required
+                                <label for="date_of_joining" class="block text-sm font-semibold text-gray-700 mb-1">Date of Joining to the Post</label>
+                                <input type="date" name="date_of_joining" id="date_of_joining"
                                     class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
                                     value="{{ old('date_of_joining') }}">
                                 @error('date_of_joining')
@@ -109,8 +109,8 @@
 
                             <!-- Email -->
                             <div>
-                                <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">E-mail ID <span class="text-red-500">*</span></label>
-                                <input type="email" name="email" id="email" required
+                                <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">E-mail ID</label>
+                                <input type="email" name="email" id="email"
                                     class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
                                     value="{{ old('email') }}">
                                 @error('email')
@@ -120,8 +120,8 @@
 
                             <!-- Mobile No -->
                             <div>
-                                <label for="mobile_no" class="block text-sm font-semibold text-gray-700 mb-1">Mobile No. <span class="text-red-500">*</span></label>
-                                <input type="text" name="mobile_no" id="mobile_no" required
+                                <label for="mobile_no" class="block text-sm font-semibold text-gray-700 mb-1">Mobile No.</label>
+                                <input type="text" name="mobile_no" id="mobile_no"
                                     class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
                                     value="{{ old('mobile_no') }}">
                                 @error('mobile_no')

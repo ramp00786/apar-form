@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AparFormData extends Model
 {
-    protected $table = 'apar_form_data';
+    protected $table = 'form_data';
 
     protected $fillable = [
         'form_id',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AparForm;
+use App\Models\AparFormData;
 
 class AparFormController extends Controller
 {
@@ -33,13 +34,13 @@ class AparFormController extends Controller
         $validated = $request->validate([
             'employee_name' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
-            'employee_id' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-            'section_or_group' => 'required|string|max:255',
-            'area_of_specialization' => 'required|string|max:255',
-            'date_of_joining' => 'required|date',
-            'email' => 'required|email|max:255',
-            'mobile_no' => 'required|string|max:20',
+            'employee_id' => 'nullable|string|max:255',
+            'date_of_birth' => 'nullable|date',
+            'section_or_group' => 'nullable|string|max:255',
+            'area_of_specialization' => 'nullable|string|max:255',
+            'date_of_joining' => 'nullable|date',
+            'email' => 'nullable|email|max:255',
+            'mobile_no' => 'nullable|string|max:20',
             'report_year' => 'required|integer|min:2000|max:2100',
             'department' => 'nullable|string|max:255',
         ]);
@@ -70,27 +71,39 @@ class AparFormController extends Controller
     public function update(Request $request, AparForm $form)
     {
         $request->validate([
-            'section' => 'required|in:part_3,part_5,part_b',
+            'section' => 'required|in:part_3,part_4,part_5,part_b',
         ]);
 
         $section = $request->input('section');
-        $data = $request->except(['_token', '_method', 'section']);
+        $user = auth()->user();
+
+        // Check permissions for the section
+        if (!$this->canEditSection($user, $section)) {
+            abort(403, 'You do not have permission to edit this section.');
+        }
+
+        // Get validation rules for the section
+        $validationRules = $this->getValidationRules($section);
+        
+        // Validate the data
+        $validatedData = $request->validate($validationRules);
+        $data = collect($validatedData)->except(['_token', '_method', 'section'])->toArray();
 
         // Store or update the form data for the specific section
         foreach ($data as $key => $value) {
             AparFormData::updateOrCreate(
                 [
-                    'apar_form_id' => $form->id,
+                    'form_id' => $form->id,
                     'section' => $section,
                     'field_name' => $key,
                 ],
                 [
-                    'field_value' => $value,
+                    'field_value' => is_null($value) ? null : (string) $value,
                 ]
             );
         }
 
-        return redirect()->route('forms.show', $form)->with('success', 'Form data updated successfully.');
+        return redirect()->route('forms.show', $form)->with('success', ucfirst(str_replace('_', ' ', $section)) . ' updated successfully.');
     }
 
     public function print(AparForm $form)
@@ -98,6 +111,7 @@ class AparFormController extends Controller
         // Get all form data organized by sections
         $formData = [
             'part_3' => $form->getFormDataBySection('part_3'),
+            'part_4' => $form->getFormDataBySection('part_4'),
             'part_5' => $form->getFormDataBySection('part_5'),
             'part_b' => $form->getFormDataBySection('part_b'),
         ];
@@ -109,14 +123,130 @@ class AparFormController extends Controller
     {
         switch ($section) {
             case 'part_3':
+                return $user->hasAparPermission('edit_part_3');
             case 'part_4':
-                return $user->hasAparPermission('edit_part_3') || $user->hasAparPermission('edit_part_4');
+                return $user->hasAparPermission('edit_part_4');
             case 'part_5':
                 return $user->hasAparPermission('edit_part_5');
             case 'part_b':
                 return $user->hasAparPermission('edit_part_b');
             default:
                 return false;
+        }
+    }
+
+    private function getValidationRules($section)
+    {
+        switch ($section) {
+            case 'part_3':
+                return [
+                    // Section A: Work Output (40%)
+                    'work_planned_reporting' => 'nullable|integer|min:1|max:10',
+                    'work_planned_reviewing' => 'nullable|integer|min:1|max:10',
+                    'work_planned_initial' => 'nullable|string|max:10',
+                    'scientific_achievements_reporting' => 'nullable|integer|min:1|max:10',
+                    'scientific_achievements_reviewing' => 'nullable|integer|min:1|max:10',
+                    'scientific_achievements_initial' => 'nullable|string|max:10',
+                    'quality_output_reporting' => 'nullable|integer|min:1|max:10',
+                    'quality_output_reviewing' => 'nullable|integer|min:1|max:10',
+                    'quality_output_initial' => 'nullable|string|max:10',
+                    'analytical_ability_reporting' => 'nullable|integer|min:1|max:10',
+                    'analytical_ability_reviewing' => 'nullable|integer|min:1|max:10',
+                    'analytical_ability_initial' => 'nullable|string|max:10',
+                    'exceptional_work_reporting' => 'nullable|integer|min:1|max:10',
+                    'exceptional_work_reviewing' => 'nullable|integer|min:1|max:10',
+                    'exceptional_work_initial' => 'nullable|string|max:10',
+                    'overall_work_output_reporting' => 'nullable|integer|min:1|max:10',
+                    'overall_work_output_reviewing' => 'nullable|integer|min:1|max:10',
+                    'overall_work_output_initial' => 'nullable|string|max:10',
+                    
+                    // Section B: Personal Attributes (30%)
+                    'attitude_work_reporting' => 'nullable|integer|min:1|max:10',
+                    'attitude_work_reviewing' => 'nullable|integer|min:1|max:10',
+                    'attitude_work_initial' => 'nullable|string|max:10',
+                    'sense_responsibility_reporting' => 'nullable|integer|min:1|max:10',
+                    'sense_responsibility_reviewing' => 'nullable|integer|min:1|max:10',
+                    'sense_responsibility_initial' => 'nullable|string|max:10',
+                    'maintenance_discipline_reporting' => 'nullable|integer|min:1|max:10',
+                    'maintenance_discipline_reviewing' => 'nullable|integer|min:1|max:10',
+                    'maintenance_discipline_initial' => 'nullable|string|max:10',
+                    'communication_skills_reporting' => 'nullable|integer|min:1|max:10',
+                    'communication_skills_reviewing' => 'nullable|integer|min:1|max:10',
+                    'communication_skills_initial' => 'nullable|string|max:10',
+                    'leadership_qualities_reporting' => 'nullable|integer|min:1|max:10',
+                    'leadership_qualities_reviewing' => 'nullable|integer|min:1|max:10',
+                    'leadership_qualities_initial' => 'nullable|string|max:10',
+                    'team_spirit_reporting' => 'nullable|integer|min:1|max:10',
+                    'team_spirit_reviewing' => 'nullable|integer|min:1|max:10',
+                    'team_spirit_initial' => 'nullable|string|max:10',
+                    'overall_personal_attributes_reporting' => 'nullable|integer|min:1|max:10',
+                    'overall_personal_attributes_reviewing' => 'nullable|integer|min:1|max:10',
+                    'overall_personal_attributes_initial' => 'nullable|string|max:10',
+                    
+                    // Section C: Professional Competence (30%)
+                    'scientific_capability_reporting' => 'nullable|integer|min:1|max:10',
+                    'scientific_capability_reviewing' => 'nullable|integer|min:1|max:10',
+                    'scientific_capability_initial' => 'nullable|string|max:10',
+                    'st_foresight_reporting' => 'nullable|integer|min:1|max:10',
+                    'st_foresight_reviewing' => 'nullable|integer|min:1|max:10',
+                    'st_foresight_initial' => 'nullable|string|max:10',
+                    'decision_making_reporting' => 'nullable|integer|min:1|max:10',
+                    'decision_making_reviewing' => 'nullable|integer|min:1|max:10',
+                    'decision_making_initial' => 'nullable|string|max:10',
+                    'innovation_creativity_reporting' => 'nullable|integer|min:1|max:10',
+                    'innovation_creativity_reviewing' => 'nullable|integer|min:1|max:10',
+                    'innovation_creativity_initial' => 'nullable|string|max:10',
+                    'technical_competence_reporting' => 'nullable|integer|min:1|max:10',
+                    'technical_competence_reviewing' => 'nullable|integer|min:1|max:10',
+                    'technical_competence_initial' => 'nullable|string|max:10',
+                    'new_initiative_reporting' => 'nullable|integer|min:1|max:10',
+                    'new_initiative_reviewing' => 'nullable|integer|min:1|max:10',
+                    'new_initiative_initial' => 'nullable|string|max:10',
+                    'overall_functional_competency_reporting' => 'nullable|integer|min:1|max:10',
+                    'overall_functional_competency_reviewing' => 'nullable|integer|min:1|max:10',
+                    'overall_functional_competency_initial' => 'nullable|string|max:10',
+                ];
+                
+            case 'part_4':
+                return [
+                    'relation_with_public' => 'nullable|string|max:2000',
+                    'training_recommendation' => 'nullable|string|max:2000',
+                    'state_of_health' => 'nullable|string|max:1000',
+                    'integrity_assessment' => 'nullable|string|max:1000',
+                    'pen_picture_reporting' => 'nullable|string|max:2000',
+                    'overall_numerical_grading' => 'nullable|numeric|min:1|max:10',
+                ];
+                
+            case 'part_5':
+                return [
+                    'reviewing_remarks' => 'nullable|string|max:2000',
+                    'agree_with_reporting_officer' => 'nullable|in:yes,no',
+                    'disagreement_reason' => 'nullable|string|max:2000',
+                    'pen_picture_reviewing' => 'nullable|string|max:2000',
+                    'overall_numerical_grading_reviewing' => 'nullable|numeric|min:1|max:10',
+                ];
+                
+            case 'part_b':
+                return [
+                    'agree_evaluation' => 'nullable|string|max:2000',
+                    'innovative_summary' => 'nullable|string|max:2000',
+                    'exceptional_contribution' => 'nullable|string|max:2000',
+                    'param1_marks' => 'nullable|integer|min:0|max:100',
+                    'param1_max_marks' => 'nullable|integer|min:0|max:100',
+                    'param2_marks' => 'nullable|integer|min:0|max:100',
+                    'param2_max_marks' => 'nullable|integer|min:0|max:100',
+                    'param3_marks' => 'nullable|integer|min:0|max:100',
+                    'param3_max_marks' => 'nullable|integer|min:0|max:100',
+                    'param4_marks' => 'nullable|integer|min:0|max:100',
+                    'param4_max_marks' => 'nullable|integer|min:0|max:100',
+                    'param5_marks' => 'nullable|integer|min:0|max:100',
+                    'param5_max_marks' => 'nullable|integer|min:0|max:100',
+                    'total_marks_obtained' => 'nullable|integer|min:0|max:500',
+                    'total_max_marks' => 'nullable|integer|min:0|max:500',
+                ];
+                
+            default:
+                return [];
         }
     }
 }

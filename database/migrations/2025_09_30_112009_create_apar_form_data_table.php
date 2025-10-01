@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('apar_form_data', function (Blueprint $table) {
+        Schema::create('form_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('form_id');
             $table->string('section', 50); // e.g., 'part_3', 'part_4', 'part_5', 'part_b'
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('apar_form_data');
+        Schema::dropIfExists('form_data');
     }
 };

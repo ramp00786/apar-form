@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function aparRoles()
     {
-        return $this->belongsToMany(AparRole::class, 'apar_user_roles', 'user_id', 'role_id');
+        return $this->belongsToMany(AparRole::class, 'user_roles', 'user_id', 'role_id');
     }
 
     public function hasAparRole(string $roleName): bool

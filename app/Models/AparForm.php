@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AparForm extends Model
 {
-    protected $table = 'apar_forms';
+    protected $table = 'forms';
 
     protected $fillable = [
         'employee_name',
@@ -37,6 +37,11 @@ class AparForm extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     public function formData(): HasMany
     {
         return $this->hasMany(AparFormData::class, 'form_id');
@@ -58,6 +63,38 @@ class AparForm extends Model
                 ],
                 ['field_value' => $fieldValue]
             );
+        }
+    }
+
+    public function hasSectionData(string $section): bool
+    {
+        return $this->formData()->where('section', $section)->whereNotNull('field_value')->where('field_value', '!=', '')->exists();
+    }
+
+    public function getSectionCompletionPercentage(string $section): int
+    {
+        $sectionData = $this->getFormDataBySection($section);
+        $totalFields = $this->getExpectedFieldsForSection($section);
+        $filledFields = $sectionData->filter(function ($value) {
+            return !is_null($value) && $value !== '';
+        })->count();
+
+        return $totalFields > 0 ? (int) round(($filledFields / $totalFields) * 100) : 0;
+    }
+
+    private function getExpectedFieldsForSection(string $section): int
+    {
+        switch ($section) {
+            case 'part_3':
+                return 54; // All the assessment fields
+            case 'part_4':
+                return 6; // 6 main fields in part 4
+            case 'part_5':
+                return 5; // 5 main fields in part 5
+            case 'part_b':
+                return 15; // All part B fields including parameters
+            default:
+                return 0;
         }
     }
 }

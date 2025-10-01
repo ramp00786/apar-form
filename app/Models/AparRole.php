@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class AparRole extends Model
 {
-    protected $table = 'apar_roles';
+    protected $table = 'roles';
 
     protected $fillable = [
         'name',
@@ -21,7 +21,7 @@ class AparRole extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'apar_user_roles', 'role_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_roles', 'role_id', 'user_id');
     }
 
     public function hasPermission(string $permission): bool
