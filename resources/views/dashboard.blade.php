@@ -68,13 +68,17 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $form->employee_id }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $form->report_year }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full 
+                                                <select onchange="updateStatus({{ $form->id }}, this.value)" 
+                                                    style="padding-right: 35px !important;"
+                                                    class="px-3 py-1 text-xs font-bold rounded-full border-0 focus:ring-2 focus:ring-blue-500 transition-all
                                                     @if($form->status == 'completed') bg-green-100 text-green-700
                                                     @elseif($form->status == 'in_progress') bg-yellow-100 text-yellow-700
                                                     @else bg-gray-100 text-gray-700
                                                     @endif">
-                                                    {{ ucfirst($form->status) }}
-                                                </span>
+                                                    <option value="draft" {{ $form->status == 'draft' ? 'selected' : '' }}>Draft</option>
+                                                    <option value="in_progress" {{ $form->status == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                                                    <option value="completed" {{ $form->status == 'completed' ? 'selected' : '' }}>Completed</option>
+                                                </select>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $form->creator->name }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex gap-2">
@@ -83,8 +87,12 @@
                                                     View
                                                 </a>
                                                 <a href="{{ route('forms.edit', $form) }}" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-900 font-semibold transition">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11.293-11.293a1 1 0 00-1.414-1.414L9 19H3v-6z"/></svg>
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                                                     Edit
+                                                </a>
+                                                <a href="{{ route('forms.print', $form) }}" target="_blank" class="inline-flex items-center gap-1 text-green-600 hover:text-green-900 font-semibold transition">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2z"/></svg>
+                                                    Print
                                                 </a>
                                             </td>
                                         </tr>
@@ -103,4 +111,91 @@
             </div>
         </div>
     </div>
+    <script>
+        function updateStatus(formId, newStatus) {
+            // Show loading state
+            const select = event.target;
+            const originalValue = select.dataset.originalValue || select.value;
+            select.disabled = true;
+            select.style.opacity = '0.6';
+
+            fetch(`/forms/${formId}/status`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    status: newStatus
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update status');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Update the select styling based on new status
+                select.className = select.className.replace(/bg-(green|yellow|gray)-100 text-(green|yellow|gray)-700/g, '');
+                
+                if (newStatus === 'completed') {
+                    select.className += ' bg-green-100 text-green-700';
+                } else if (newStatus === 'in_progress') {
+                    select.className += ' bg-yellow-100 text-yellow-700';
+                } else {
+                    select.className += ' bg-gray-100 text-gray-700';
+                }
+                
+                // Show success message
+                showToast('Status updated successfully!', 'success');
+                
+                // Update stats if needed
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Revert to original value
+                select.value = originalValue;
+                showToast('Failed to update status. Please try again.', 'error');
+            })
+            .finally(() => {
+                select.disabled = false;
+                select.style.opacity = '1';
+                select.dataset.originalValue = select.value;
+            });
+        }
+
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 text-white font-semibold transition-all duration-300 transform translate-x-full ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Animate out and remove
+            setTimeout(() => {
+                toast.style.transform = 'translateX(full)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        // Store original values on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('select[onchange*="updateStatus"]').forEach(select => {
+                select.dataset.originalValue = select.value;
+            });
+        });
+    </script>
 </x-app-layout>

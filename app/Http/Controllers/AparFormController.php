@@ -249,4 +249,19 @@ class AparFormController extends Controller
                 return [];
         }
     }
+
+    public function updateStatus(Request $request, AparForm $form)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:draft,in_progress,completed'
+        ]);
+
+        $form->update(['status' => $validated['status']]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully',
+            'status' => $form->status
+        ]);
+    }
 }

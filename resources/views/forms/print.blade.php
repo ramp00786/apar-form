@@ -175,6 +175,9 @@
             list-style-type: lower-roman;
             padding-left: 5px;
         }
+        .page-number{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -296,7 +299,7 @@
             <strong>13. Any training undergone during the year of Report:</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 180px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 180px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
@@ -335,7 +338,7 @@
             <strong>1. Brief description of duties.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 360px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 360px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
@@ -350,16 +353,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td style="min-height: 180px; padding: 10px;">&nbsp;</td><td style="min-height: 180px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 180px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td><td style="min-height: 180px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
+        <div class="page-break"></div>
         <div class="page-number">-4-</div>
         <div>
             <strong>3. Please state briefly about major publications/reports/Technology transferred/patents filed/projects managed/social outreach activities/manpower trained not exceeding in 100 word.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 150px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 150px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
@@ -368,7 +372,7 @@
             <strong>4. Specific contribution made to different mission of the Government like Atma Nirbhar Bharat, Make in India, Swachh Bharat etc., in bullets (50 words.)</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
@@ -377,7 +381,7 @@
             <strong>5. Please brief about the work done/utilization of GeM portal for procurement of goods and services.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
@@ -386,18 +390,18 @@
             <strong>6. Please state whether annual return on immovable property for the preceding calendar year was filed within the prescribed date i.e 31st January of the year following the calendar year. If not the date of filling the return should be given.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
 
         <div style="margin-top: 40px;">
-            <p>Date: {{ date('d/m/Y') }}</p>
-            <p>Place: ________________</p>
+            
+            <p>Date: ________________</p>
             <br>
             <div class="signature-section">
                 <p><strong>Signature of the Scientist Reported Upon</strong></p>
-                <p><strong>{{ $form->employee_name }}</strong></p>
+                
             </div>
         </div>
 
@@ -408,18 +412,14 @@
 
         
 
-        <!-- Page Break -->
-        <div class="page-break"></div>
 
         <!-- Page 5: PART-3 -->
         <div class="page-number">-5-</div>
-        <div class="part-title">PART-3 (Name of theEmployee__________________________)</div>
-        <div class="part-subtitle">Numerical grading is to be awarded by reporting and reviewing authority which should be on a scale of 1-10 where 1 refers to the lowest grade and 10 to the highest.</div>
+        <div class="part-title">PART-3 (Name of the Employee:____{{ $form->employee_name }}____)</div>
+        <div class="part-subtitle" style="text-align: left; font-weight: bold;">Numerical grading is to be awarded by reporting and reviewing authority which should be on a scale of 1-10 where 1 refers to the lowest grade and 10 to the highest.</div>
         <div class="part-subtitle">(Please read carefully the guidelines before filling entries)</div>
         
-        <div style="margin: 20px 0;">
-            <strong>(Name of the Employee: {{ $form->employee_name }})</strong>
-        </div>
+       
 
         <!-- Section A: Assessment of Work Output -->
         <div class="text-center"><strong>(A) Assessment of work output (weightage to this Section would be 40%)</strong></div>
@@ -435,28 +435,40 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Work Output Assessment</td>
-                    <td>&nbsp;</td>
-                    <td>{{ $formData['part_3']['work_output'] ?? '' }}</td>
-                    <td>&nbsp;</td>
+                    <td>(i) Accomplishment of planned work/work allotted</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['work_planned_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['work_planned_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['work_planned_initial'] ?? '' }}</td>
                 </tr>
                 <tr>
-                    <td>Professional Skills</td>
-                    <td>&nbsp;</td>
-                    <td>{{ $formData['part_3']['professional_skills'] ?? '' }}</td>
-                    <td>&nbsp;</td>
+                    <td>(ii) Scientist & Technical Achievements</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['scientific_achievements_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['scientific_achievements_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['scientific_achievements_initial'] ?? '' }}</td>
                 </tr>
                 <tr>
-                    <td>Communication Skills</td>
-                    <td>&nbsp;</td>
-                    <td>{{ $formData['part_3']['communication_skills'] ?? '' }}</td>
-                    <td>&nbsp;</td>
+                    <td>(iii) Quality of output</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['quality_output_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['quality_output_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['quality_output_initial'] ?? '' }}</td>
                 </tr>
                 <tr>
+                    <td>(iv) Analytical ability</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['analytical_ability_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['analytical_ability_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['analytical_ability_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(v) Accomplishment of exceptional work</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['exceptional_work_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['exceptional_work_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['exceptional_work_initial'] ?? '' }}</td>
+                </tr>
+                <tr style="background-color: #fff2cc;">
                     <td><strong>Overall Grading on "Work Output"</strong></td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_work_output_reporting'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_work_output_reviewing'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_work_output_initial'] ?? '' }}</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -474,16 +486,48 @@
                 </tr>
             </thead>
             <tbody>
-                <tr><td>(i) Integrity & Conduct</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(ii) Ability to work hard</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(iii) Sense of responsibility</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(iv) Communication skills</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(v) Leadership Qualities</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(vi) Capacity to work in team spirit</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(vii) Capacity to adhere to time-schedule</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(viii) Inter-personal relations</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(ix) Overall bearing and personality</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td><strong>Overall Grading on "Personal Attributes"</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr>
+                    <td>(i) Attitude to work</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['attitude_work_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['attitude_work_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['attitude_work_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(ii) Sense of Responsibility</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['sense_responsibility_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['sense_responsibility_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['sense_responsibility_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(iii) Maintenance of Discipline</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['maintenance_discipline_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['maintenance_discipline_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['maintenance_discipline_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(iv) Communication skills</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['communication_skills_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['communication_skills_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['communication_skills_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(v) Leadership Qualities</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['leadership_qualities_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['leadership_qualities_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['leadership_qualities_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(vi) Capacity to work in team spirit</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['team_spirit_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['team_spirit_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['team_spirit_initial'] ?? '' }}</td>
+                </tr>
+                <tr style="background-color: #fff2cc;">
+                    <td><strong>Overall Grading on "Personal Attributes"</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_personal_attributes_reporting'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_personal_attributes_reviewing'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_personal_attributes_initial'] ?? '' }}</strong></td>
+                </tr>
             </tbody>
         </table>
 
@@ -500,13 +544,48 @@
                 </tr>
             </thead>
             <tbody>
-                <tr><td>(i) Scientific Capability</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(ii) S&T Foresight and Vision</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(iii) Decision making ability</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(iv) Organizing ability</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(v) Ability to motivate and groom sub-ordinates</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>(vi) New Initiative</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td><strong>Overall Grading on "Functional Competency"</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr>
+                    <td>(i) Scientific Capability</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['scientific_capability_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['scientific_capability_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['scientific_capability_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(ii) S&T Foresight and Vision</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['st_foresight_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['st_foresight_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['st_foresight_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(iii) Decision making ability</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['decision_making_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['decision_making_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['decision_making_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(iv) Innovation/Creativity</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['innovation_creativity_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['innovation_creativity_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['innovation_creativity_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(v) Technical Competence</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['technical_competence_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['technical_competence_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['technical_competence_initial'] ?? '' }}</td>
+                </tr>
+                <tr>
+                    <td>(vi) New Initiative</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['new_initiative_reporting'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['new_initiative_reviewing'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['part_3']['new_initiative_initial'] ?? '' }}</td>
+                </tr>
+                <tr style="background-color: #fff2cc;">
+                    <td><strong>Overall Grading on "Functional Competency"</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_functional_competency_reporting'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_functional_competency_reviewing'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_functional_competency_initial'] ?? '' }}</strong></td>
+                </tr>
             </tbody>
         </table>
 
@@ -547,8 +626,7 @@
             </table>
         </div>
 
-        <!-- Page Break -->
-        <div class="page-break"></div>
+       
 
         <!-- Page 7: Continuing PART-4 -->
         <div class="page-number">-7-</div>
@@ -580,6 +658,8 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="page-break"></div>
 
         <div style="margin-top: 60px;">
             <p>Place: _______________________</p>
@@ -691,21 +771,21 @@
             <p><strong>4. a. New Initiative taken:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
 
             <p><strong>4. b. S&T content of the work done:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
 
             <p><strong>4. c. Innovation content of the work done:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;</td></tr>
+                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
                 </tbody>
             </table>
         </div>
@@ -713,37 +793,96 @@
         <!-- Page Break -->
         <div class="page-break"></div>
 
-        <!-- Page 10: Continuing Self-Assessment -->
+        <!-- Page 10: Parameter Evaluation Table -->
         <div class="page-number">-10-</div>
 
-        <div>
-            <strong>5. Brief Description of evaluation parameters related to the officer's work function as given in the Appendix:</strong>
-            <p><strong>Assessment of work output</strong></p>
-            
-            <p><em>(Out of the five broad parameters given at Appendix, the officer may choose at least twenty sub parameters of 5 marks each for 100 marks in total relevant to the work function of the officer).</em></p>
-
-            <table class="evaluation-table">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">SL No.</th>
-                        <th style="width: 50%;">Brief Description of the parameter on which the officer has to be evaluated</th>
-                        <th style="width: 40%;">Achievement made there to by the Officer concerned (maximum 50 words each for each sub parameters)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for($i = 1; $i <= 20; $i++)
-                    <tr>
-                        <td class="text-center">{{ $i }}</td>
-                        <td style="min-height: 60px; padding: 5px;">&nbsp;</td>
-                        <td style="min-height: 60px; padding: 5px;">&nbsp;</td>
-                    </tr>
-                    @endfor
-                </tbody>
-            </table>
+        <p><strong>5. Brief Description of evaluation parameters related to the officer's work function as given in the Appendix:</strong></p>
+        <p>Assessment of work output</p>
+        <div style="text-align: center; margin: 20px 0;">
+            <strong>(Out of the five broad parameters given at Appendix, the officer may choose at least twenty sub parameters of 5 marks each for 100 marks in total relevant to the work function of the officer).</strong>
         </div>
 
+        <table class="evaluation-table">
+            <thead>
+                <tr>
+                    <th style="width: 8%; text-align: center;">SL<br>No.</th>
+                    <th style="width: 52%; text-align: center;">Brief Description of the parameter on which the officer has to be evaluated</th>
+                    <th style="width: 40%; text-align: center;">Achievement made there to by the Officer concerned (maximum 50 words each for each sub parameters)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+                    <td style="vertical-align: top; padding: 8px;">
+                        <div><strong>Parameter:</strong> ____________________</div>
+                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                        <div>a.</div>
+                        <div>b.</div>
+                        <div>c.</div>
+                        <div>d.</div>
+                        <div>e</div>
+                    </td>
+                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
+                    <td style="vertical-align: top; padding: 8px;">
+                        <div><strong>Parameter:</strong> ____________________</div>
+                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                        <div>a.</div>
+                        <div>b.</div>
+                        <div>c.</div>
+                        <div>d</div>
+                        <div>e</div>
+                    </td>
+                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: top; padding: 8px;">3</td>
+                    <td style="vertical-align: top; padding: 8px;">
+                        <div><strong>Parameter:</strong> ____________________</div>
+                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                        <div>a.</div>
+                        <div>b.</div>
+                        <div>c.</div>
+                        <div>d</div>
+                        <div>e</div>
+                    </td>
+                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
+                    <td style="vertical-align: top; padding: 8px;">
+                        <div><strong>Parameter:</strong> ____________________</div>
+                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                        <div>a.</div>
+                        <div>b.</div>
+                        <div>c.</div>
+                        <div>d</div>
+                        <div>e</div>
+                    </td>
+                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
+                    <td style="vertical-align: top; padding: 8px;">
+                        <div><strong>Parameter:</strong> ____________________</div>
+                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                        <div>a.</div>
+                        <div>b.</div>
+                        <div>c.</div>
+                        <div>d</div>
+                        <div>e</div>
+                    </td>
+                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="page-break"></div>
+
         <div style="margin-top: 40px;">
-            <p>Date: {{ date('d/m/Y') }}</p>
+            <p>Date: ________________</p>
             <p>Place: ________________</p>
             <br>
             <div class="signature-section">
@@ -789,7 +928,7 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="page-break"></div>
         <div>
             <strong>4. Overall assessment of the scientific work</strong>
             <table class="assessment-table">
@@ -832,10 +971,13 @@
                 <div><strong>Name:</strong> ________________________</div>
                 <div style="margin-top: 8px;"><strong>Designation:</strong> ________________________</div>
             </div>
+            <br>
+            <br>
+            
         </div>
 
         <!-- Page Break -->
-        <div class="page-break"></div>
+        
 
         <!-- Page 12: Parameters for Evaluation (Appendix) -->
         <div class="page-number">-12-</div>
@@ -967,7 +1109,7 @@
         </div>
 
         <div>
-            <p>
+            <p style="text-align: center; margin-top: 40px;">
                 **********
             </p>
         </div>
