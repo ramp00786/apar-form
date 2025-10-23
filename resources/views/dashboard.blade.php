@@ -119,44 +119,54 @@
             select.disabled = true;
             select.style.opacity = '0.6';
 
-            fetch(`/forms/${formId}/status`, {
-                method: 'PATCH',
+            // Use Laravel's proper URL generation that includes base path
+            const url = `{{ route('forms.updateStatus', ':formId') }}`.replace(':formId', formId);
+
+            // Use simple POST approach for maximum compatibility
+            const formData = new FormData();
+            formData.append('status', newStatus);
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+            fetch(url, {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify({
-                    status: newStatus
-                })
+                body: formData
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to update status');
+                    return response.text().then(text => {
+                        throw new Error(`HTTP ${response.status}: Failed to update status`);
+                    });
                 }
                 return response.json();
             })
             .then(data => {
-                // Update the select styling based on new status
-                select.className = select.className.replace(/bg-(green|yellow|gray)-100 text-(green|yellow|gray)-700/g, '');
-                
-                if (newStatus === 'completed') {
-                    select.className += ' bg-green-100 text-green-700';
-                } else if (newStatus === 'in_progress') {
-                    select.className += ' bg-yellow-100 text-yellow-700';
+                if (data.success) {
+                    // Update the select styling based on new status
+                    select.className = select.className.replace(/bg-(green|yellow|gray)-100 text-(green|yellow|gray)-700/g, '');
+                    
+                    if (newStatus === 'completed') {
+                        select.className += ' bg-green-100 text-green-700';
+                    } else if (newStatus === 'in_progress') {
+                        select.className += ' bg-yellow-100 text-yellow-700';
+                    } else {
+                        select.className += ' bg-gray-100 text-gray-700';
+                    }
+                    
+                    // Show success message
+                    showToast('Status updated successfully!', 'success');
+                    
+                    // Update stats if needed
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
                 } else {
-                    select.className += ' bg-gray-100 text-gray-700';
+                    throw new Error(data.message || 'Unknown error occurred');
                 }
-                
-                // Show success message
-                showToast('Status updated successfully!', 'success');
-                
-                // Update stats if needed
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
             })
             .catch(error => {
-                console.error('Error:', error);
                 // Revert to original value
                 select.value = originalValue;
                 showToast('Failed to update status. Please try again.', 'error');

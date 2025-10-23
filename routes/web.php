@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::resource('forms', AparFormController::class);
     Route::get('/forms/{form}/print', [AparFormController::class, 'print'])->name('forms.print');
-    Route::patch('/forms/{form}/status', [AparFormController::class, 'updateStatus'])->name('forms.updateStatus');
+    Route::post('/forms/{form}/status', [AparFormController::class, 'updateStatus'])->name('forms.updateStatus');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

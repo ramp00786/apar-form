@@ -252,16 +252,29 @@ class AparFormController extends Controller
 
     public function updateStatus(Request $request, AparForm $form)
     {
-        $validated = $request->validate([
-            'status' => 'required|in:draft,in_progress,completed'
-        ]);
+        try {
+            $validated = $request->validate([
+                'status' => 'required|in:draft,in_progress,completed'
+            ]);
 
-        $form->update(['status' => $validated['status']]);
+            $form->update(['status' => $validated['status']]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Status updated successfully',
-            'status' => $form->status
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Status updated successfully',
+                'status' => $form->status
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update status: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }
