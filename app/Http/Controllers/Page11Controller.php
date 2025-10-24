@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page11Data;
+use App\Models\Page11OverallAssessment;
 use App\Models\AparForm;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -37,6 +38,7 @@ class Page11Controller extends Controller
 
             // Delete existing Page 11 data for this form
             Page11Data::where('form_id', $form->id)->delete();
+            Page11OverallAssessment::where('form_id', $form->id)->delete();
 
             // Save text fields first (only one record for these)
             $textData = [
@@ -51,7 +53,7 @@ class Page11Controller extends Controller
                 Page11Data::create($textData);
             }
 
-            // Save parameter data if exists
+            // Save parameter data in separate table
             if (isset($validatedData['parameters']) && is_array($validatedData['parameters'])) {
                 foreach ($validatedData['parameters'] as $parameterData) {
                     // Only save if at least one field has data
@@ -60,10 +62,9 @@ class Page11Controller extends Controller
                     });
                     
                     if ($hasData->count() > 0) {
-                        Page11Data::create([
+                        Page11OverallAssessment::create([
                             'form_id' => $form->id,
                             'parameter_name' => $parameterData['parameter_name'] ?? null,
-                            'sub_parameters_label' => 'Sub Parameters', // Fixed label
                             'sub_parameter_a' => $parameterData['sub_parameter_a'] ?? null,
                             'sub_parameter_b' => $parameterData['sub_parameter_b'] ?? null,
                             'sub_parameter_c' => $parameterData['sub_parameter_c'] ?? null,

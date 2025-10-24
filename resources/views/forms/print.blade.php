@@ -1063,8 +1063,7 @@
                 </thead>
                 <tbody>
                     @php
-                        $page11Data = $formData['page11_data'] ?? collect();
-                        $parametersWithMarks = $page11Data->whereNotNull('parameter_name')->where('parameter_name', '!=', '');
+                        $parametersWithMarks = $formData['page11_overall_assessments'] ?? collect();
                         $totalMarksObtained = $parametersWithMarks->sum('marks_given');
                         $totalMaxMarks = $parametersWithMarks->sum('max_marks');
                     @endphp

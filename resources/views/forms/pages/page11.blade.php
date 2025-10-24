@@ -32,7 +32,7 @@
     $formId = request()->route('form')->id ?? $form->id;
     $page11Data = \App\Models\Page11Data::where('form_id', $formId)->get();
     $textData = $page11Data->whereNotNull('agree_evaluation')->first();
-    $parameterData = $page11Data->whereNotNull('parameter_name');
+    $parameterData = \App\Models\Page11OverallAssessment::where('form_id', $formId)->get();
     $isReportingOfficer = auth()->user()->hasAparRole('reporting_officer');
 @endphp
 
