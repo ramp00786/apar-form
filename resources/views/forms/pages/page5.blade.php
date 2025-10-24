@@ -1,5 +1,57 @@
 {{-- page 5 --}}
-<div class="bg-white/90 backdrop-blur-md shadow rounded mb-8 p-4 px-8">
+<style>
+    #page5 input {
+        height: 35px;
+        text-align: center;
+    }
+    #page5 input:disabled {
+        background-color: lightgray;
+    }
+    .evaluation-table input {
+        border: 1px solid #ddd;
+        width: 100%;
+        padding: 5px;
+    }
+</style>
+
+{{-- fetch page5 data directly from database --}}
+@php
+    $formId = request()->route('form')->id ?? $form->id;
+    $page5Data = \App\Models\Page5Data::where('form_id', $formId)->first();
+@endphp
+
+<div class="bg-white/90 backdrop-blur-md shadow rounded mb-8 p-4 px-8" id="page5">
+
+    {{-- Edit/Save/Cancel Buttons --}}
+    <div class="flex justify-end py-4">
+        <button id="editBtn5" class="bg-blue-500 text-white px-4 py-2 rounded" onclick="enableEdit5()">
+            {{-- edit svg --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Edit
+        </button>
+        
+        <button id="saveBtn5" class="bg-green-500 text-white px-4 py-2 rounded mr-2" style="display: none;" onclick="saveChanges5()">
+            {{-- save svg --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Save
+        </button>
+        
+        <button id="cancelBtn5" class="bg-gray-500 text-white px-4 py-2 rounded" style="display: none;" onclick="cancelEdit5()">
+            {{-- cancel svg --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Cancel
+        </button>
+    </div>
 
                 <div class="page-number">-5-</div>
                 <div class="part-title">PART-3 (Name of the Employee:____{{ $form->employee_name }}____)</div>
@@ -25,59 +77,74 @@
                     <tbody>
                         <tr>
                             <td>(i) Accomplishment of planned work/work allotted</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['work_planned_reporting'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->work_planned_reporting ?? '' }}" name="work_planned_reporting">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['work_planned_reviewing'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->work_planned_reviewing ?? '' }}" name="work_planned_reviewing">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['work_planned_initial'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->work_planned_initial ?? '' }}" name="work_planned_initial">
                             </td>
                         </tr>
                         <tr>
                             <td>(ii) Scientist & Technical Achievements</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['scientific_achievements_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->scientific_achievements_reporting ?? '' }}" name="scientific_achievements_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['scientific_achievements_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->scientific_achievements_reviewing ?? '' }}" name="scientific_achievements_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['scientific_achievements_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->scientific_achievements_initial ?? '' }}" name="scientific_achievements_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(iii) Quality of output</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['quality_output_reporting'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->quality_output_reporting ?? '' }}" name="quality_output_reporting">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['quality_output_reviewing'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->quality_output_reviewing ?? '' }}" name="quality_output_reviewing">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['quality_output_initial'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->quality_output_initial ?? '' }}" name="quality_output_initial">
                             </td>
                         </tr>
                         <tr>
                             <td>(iv) Analytical ability</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['analytical_ability_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->analytical_ability_reporting ?? '' }}" name="analytical_ability_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['analytical_ability_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->analytical_ability_reviewing ?? '' }}" name="analytical_ability_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['analytical_ability_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->analytical_ability_initial ?? '' }}" name="analytical_ability_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(v) Accomplishment of exceptional work</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['exceptional_work_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->exceptional_work_reporting ?? '' }}" name="exceptional_work_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['exceptional_work_reviewing'] ?? '' }}</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['exceptional_work_initial'] ?? '' }}
+                                <input type="text" disabled value="{{ $page5Data->exceptional_work_reviewing ?? '' }}" name="exceptional_work_reviewing">
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->exceptional_work_initial ?? '' }}" name="exceptional_work_initial">
                             </td>
                         </tr>
                         <tr style="background-color: #fff2cc;">
                             <td><strong>Overall Grading on "Work Output"</strong></td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_work_output_reporting'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_work_output_reporting ?? '' }}" name="overall_work_output_reporting" style="font-weight: bold;">
                             </td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_work_output_reviewing'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_work_output_reviewing ?? '' }}" name="overall_work_output_reviewing" style="font-weight: bold;">
                             </td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_work_output_initial'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_work_output_initial ?? '' }}" name="overall_work_output_initial" style="font-weight: bold;">
                             </td>
                         </tr>
                     </tbody>
@@ -99,68 +166,86 @@
                     <tbody>
                         <tr>
                             <td>(i) Attitude to work</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['attitude_work_reporting'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->attitude_work_reporting ?? '' }}" name="attitude_work_reporting">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['attitude_work_reviewing'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->attitude_work_reviewing ?? '' }}" name="attitude_work_reviewing">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['attitude_work_initial'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->attitude_work_initial ?? '' }}" name="attitude_work_initial">
                             </td>
                         </tr>
                         <tr>
                             <td>(ii) Sense of Responsibility</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['sense_responsibility_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->sense_responsibility_reporting ?? '' }}" name="sense_responsibility_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['sense_responsibility_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->sense_responsibility_reviewing ?? '' }}" name="sense_responsibility_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['sense_responsibility_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->sense_responsibility_initial ?? '' }}" name="sense_responsibility_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(iii) Maintenance of Discipline</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['maintenance_discipline_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->maintenance_discipline_reporting ?? '' }}" name="maintenance_discipline_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['maintenance_discipline_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->maintenance_discipline_reviewing ?? '' }}" name="maintenance_discipline_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['maintenance_discipline_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->maintenance_discipline_initial ?? '' }}" name="maintenance_discipline_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(iv) Communication skills</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['communication_skills_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->communication_skills_reporting ?? '' }}" name="communication_skills_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['communication_skills_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->communication_skills_reviewing ?? '' }}" name="communication_skills_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['communication_skills_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->communication_skills_initial ?? '' }}" name="communication_skills_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(v) Leadership Qualities</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['leadership_qualities_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->leadership_qualities_reporting ?? '' }}" name="leadership_qualities_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['leadership_qualities_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->leadership_qualities_reviewing ?? '' }}" name="leadership_qualities_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['leadership_qualities_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->leadership_qualities_initial ?? '' }}" name="leadership_qualities_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(vi) Capacity to work in team spirit</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['team_spirit_reporting'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->team_spirit_reporting ?? '' }}" name="team_spirit_reporting">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['team_spirit_reviewing'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->team_spirit_reviewing ?? '' }}" name="team_spirit_reviewing">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['team_spirit_initial'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->team_spirit_initial ?? '' }}" name="team_spirit_initial">
                             </td>
                         </tr>
                         <tr style="background-color: #fff2cc;">
                             <td><strong>Overall Grading on "Personal Attributes"</strong></td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_personal_attributes_reporting'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_personal_attributes_reporting ?? '' }}" name="overall_personal_attributes_reporting" style="font-weight: bold;">
                             </td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_personal_attributes_reviewing'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_personal_attributes_reviewing ?? '' }}" name="overall_personal_attributes_reviewing" style="font-weight: bold;">
                             </td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_personal_attributes_initial'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_personal_attributes_initial ?? '' }}" name="overall_personal_attributes_initial" style="font-weight: bold;">
                             </td>
                         </tr>
                     </tbody>
@@ -183,67 +268,85 @@
                         <tr>
                             <td>(i) Scientific Capability</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['scientific_capability_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->scientific_capability_reporting ?? '' }}" name="scientific_capability_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['scientific_capability_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->scientific_capability_reviewing ?? '' }}" name="scientific_capability_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['scientific_capability_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->scientific_capability_initial ?? '' }}" name="scientific_capability_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(ii) S&T Foresight and Vision</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['st_foresight_reporting'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->st_foresight_reporting ?? '' }}" name="st_foresight_reporting">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['st_foresight_reviewing'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->st_foresight_reviewing ?? '' }}" name="st_foresight_reviewing">
                             </td>
-                            <td style="text-align: center;">{{ $formData['part_3']['st_foresight_initial'] ?? '' }}
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->st_foresight_initial ?? '' }}" name="st_foresight_initial">
                             </td>
                         </tr>
                         <tr>
                             <td>(iii) Decision making ability</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['decision_making_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->decision_making_reporting ?? '' }}" name="decision_making_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['decision_making_reviewing'] ?? '' }}</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['decision_making_initial'] ?? '' }}
+                                <input type="text" disabled value="{{ $page5Data->decision_making_reviewing ?? '' }}" name="decision_making_reviewing">
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->decision_making_initial ?? '' }}" name="decision_making_initial">
                             </td>
                         </tr>
                         <tr>
                             <td>(iv) Innovation/Creativity</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['innovation_creativity_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->innovation_creativity_reporting ?? '' }}" name="innovation_creativity_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['innovation_creativity_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->innovation_creativity_reviewing ?? '' }}" name="innovation_creativity_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['innovation_creativity_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->innovation_creativity_initial ?? '' }}" name="innovation_creativity_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(v) Technical Competence</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['technical_competence_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->technical_competence_reporting ?? '' }}" name="technical_competence_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['technical_competence_reviewing'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->technical_competence_reviewing ?? '' }}" name="technical_competence_reviewing">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['technical_competence_initial'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->technical_competence_initial ?? '' }}" name="technical_competence_initial">
+                            </td>
                         </tr>
                         <tr>
                             <td>(vi) New Initiative</td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['new_initiative_reporting'] ?? '' }}</td>
+                                <input type="text" disabled value="{{ $page5Data->new_initiative_reporting ?? '' }}" name="new_initiative_reporting">
+                            </td>
                             <td style="text-align: center;">
-                                {{ $formData['part_3']['new_initiative_reviewing'] ?? '' }}</td>
-                            <td style="text-align: center;">{{ $formData['part_3']['new_initiative_initial'] ?? '' }}
+                                <input type="text" disabled value="{{ $page5Data->new_initiative_reviewing ?? '' }}" name="new_initiative_reviewing">
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="text" disabled value="{{ $page5Data->new_initiative_initial ?? '' }}" name="new_initiative_initial">
                             </td>
                         </tr>
                         <tr style="background-color: #fff2cc;">
                             <td><strong>Overall Grading on "Functional Competency"</strong></td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_functional_competency_reporting'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_functional_competency_reporting ?? '' }}" name="overall_functional_competency_reporting" style="font-weight: bold;">
                             </td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_functional_competency_reviewing'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_functional_competency_reviewing ?? '' }}" name="overall_functional_competency_reviewing" style="font-weight: bold;">
                             </td>
                             <td style="text-align: center;">
-                                <strong>{{ $formData['part_3']['overall_functional_competency_initial'] ?? '' }}</strong>
+                                <input type="text" disabled value="{{ $page5Data->overall_functional_competency_initial ?? '' }}" name="overall_functional_competency_initial" style="font-weight: bold;">
                             </td>
                         </tr>
                     </tbody>
@@ -251,3 +354,96 @@
 
 
             </div>            {{-- end page 5 --}}
+
+<script>
+function enableEdit5() {
+    // Enable all input fields
+    document.querySelectorAll('#page5 input').forEach(input => {
+        input.disabled = false;
+        input.style.backgroundColor = 'white';
+    });
+
+    // Show save/cancel buttons, hide edit button
+    document.getElementById('editBtn5').style.display = 'none';
+    document.getElementById('saveBtn5').style.display = 'inline-block';
+    document.getElementById('cancelBtn5').style.display = 'inline-block';
+}
+
+function cancelEdit5() {
+    // Disable all input fields and restore gray background
+    document.querySelectorAll('#page5 input').forEach(input => {
+        input.disabled = true;
+        input.style.backgroundColor = 'lightgray';
+    });
+
+    // Show edit button, hide save/cancel buttons
+    document.getElementById('editBtn5').style.display = 'inline-block';
+    document.getElementById('saveBtn5').style.display = 'none';
+    document.getElementById('cancelBtn5').style.display = 'none';
+
+    // Reload the page to restore original values
+    window.location.reload();
+}
+
+function saveChanges5() {
+    const formId = {{ $form->id ?? 'null' }};
+    
+    if (!formId) {
+        showToast('Form ID not found', 'error');
+        return;
+    }
+
+    // Collect all form data
+    const formData = {};
+    document.querySelectorAll('#page5 input[name]').forEach(input => {
+        formData[input.name] = input.value;
+    });
+
+    // Add form_id to the data
+    formData.form_id = formId;
+
+    // Show loading state
+    const saveBtn = document.getElementById('saveBtn5');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = 'Saving...';
+    saveBtn.disabled = true;
+
+    // Send AJAX request
+    fetch('/form/page5/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('Page 5 data saved successfully!', 'success');
+            
+            // Disable all inputs and restore gray background
+            document.querySelectorAll('#page5 input').forEach(input => {
+                input.disabled = true;
+                input.style.backgroundColor = 'lightgray';
+            });
+            
+            // Show edit button, hide save/cancel buttons
+            document.getElementById('editBtn5').style.display = 'inline-block';
+            document.getElementById('saveBtn5').style.display = 'none';
+            document.getElementById('cancelBtn5').style.display = 'none';
+        } else {
+            showToast(data.message || 'Error saving data', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error saving data', 'error');
+    })
+    .finally(() => {
+        // Restore button state
+        saveBtn.innerHTML = originalText;
+        saveBtn.disabled = false;
+    });
+}
+</script>

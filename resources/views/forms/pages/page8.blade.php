@@ -1,5 +1,57 @@
 {{-- page 8 --}}
-<div class="bg-white/90 backdrop-blur-md shadow rounded mb-8 p-4 px-8">
+<style>
+    #page8 textarea {
+        width: 100%;
+        border: 1px solid #ddd;
+        padding: 10px;
+        resize: vertical;
+    }
+    #page8 textarea:disabled {
+        background-color: lightgray;
+    }
+    #page8 input[type="radio"]:disabled {
+        opacity: 0.5;
+    }
+</style>
+
+{{-- fetch page8 data directly from database --}}
+@php
+    $formId = request()->route('form')->id ?? $form->id;
+    $page8Data = \App\Models\Page8Data::where('form_id', $formId)->first();
+@endphp
+
+<div class="bg-white/90 backdrop-blur-md shadow rounded mb-8 p-4 px-8" id="page8">
+
+    {{-- Edit/Save/Cancel Buttons --}}
+    <div class="flex justify-end py-4">
+        <button id="editBtn8" class="bg-blue-500 text-white px-4 py-2 rounded" onclick="enableEdit8()">
+            {{-- edit svg --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Edit
+        </button>
+        
+        <button id="saveBtn8" class="bg-green-500 text-white px-4 py-2 rounded mr-2" style="display: none;" onclick="saveChanges8()">
+            {{-- save svg --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Save
+        </button>
+        
+        <button id="cancelBtn8" class="bg-gray-500 text-white px-4 py-2 rounded" style="display: none;" onclick="cancelEdit8()">
+            {{-- cancel svg --}}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Cancel
+        </button>
+    </div>
 
                 <div class="page-number">-8-</div>
                 <div class="part-title">PART-5</div>
@@ -10,8 +62,9 @@
                     <table class="form-table">
                         <tbody>
                             <tr>
-                                <td class="medium-text-area" style="height: 250px">
-                                    {{ $formData['part_5']['reviewing_remarks'] ?? '' }}</td>
+                                <td class="medium-text-area" style="height: 250px; padding: 10px; border: 1px solid black;">
+                                    <textarea disabled name="reviewing_remarks" rows="10">{{ $page8Data->reviewing_remarks ?? '' }}</textarea>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -31,10 +84,10 @@
                         </tr>
                         <tr>
                             <td style="height: 30px; text-align: center;">
-                                {{ ($formData['part_5']['agree_with_reporting_officer'] ?? '') == 'yes' ? '✓' : '' }}
+                                <input type="radio" disabled name="agree_with_reporting_officer" value="yes" {{ ($page8Data->agree_with_reporting_officer ?? '') == 'yes' ? 'checked' : '' }}>
                             </td>
                             <td style="height: 30px; text-align: center;">
-                                {{ ($formData['part_5']['agree_with_reporting_officer'] ?? '') == 'no' ? '✓' : '' }}
+                                <input type="radio" disabled name="agree_with_reporting_officer" value="no" {{ ($page8Data->agree_with_reporting_officer ?? '') == 'no' ? 'checked' : '' }}>
                             </td>
                         </tr>
                     </table>
@@ -46,8 +99,8 @@
                     <table class="form-table">
                         <tbody>
                             <tr>
-                                <td class="medium-text-area" style="height: 250px">
-                                    {{ $formData['part_5']['disagreement_reason'] ?? '' }}
+                                <td class="medium-text-area" style="height: 250px; padding: 10px; border: 1px solid black;">
+                                    <textarea disabled name="disagreement_reason" rows="10">{{ $page8Data->disagreement_reason ?? '' }}</textarea>
                                 </td>
                             </tr>
                         </tbody>
@@ -61,8 +114,8 @@
                     <table class="form-table">
                         <tbody>
                             <tr>
-                                <td class="large-text-area" style="height: 300px">
-                                    {{ $formData['part_5']['pen_picture_reviewing'] ?? '' }}
+                                <td class="large-text-area" style="height: 300px; padding: 10px; border: 1px solid black;">
+                                    <textarea disabled name="pen_picture_reviewing" rows="12">{{ $page8Data->pen_picture_reviewing ?? '' }}</textarea>
                                 </td>
                             </tr>
                         </tbody>
@@ -75,8 +128,9 @@
                     <table class="form-table">
                         <tbody>
                             <tr>
-                                <td class="large-text-area" style="height: 50px">
-                                    {{ $formData['part_5']['overall_numerical_grading_reviewing'] ?? '' }}</td>
+                                <td class="large-text-area" style="height: 50px; padding: 10px; border: 1px solid black;">
+                                    <textarea disabled name="overall_numerical_grading_reviewing" rows="2">{{ $page8Data->overall_numerical_grading_reviewing ?? '' }}</textarea>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -100,3 +154,119 @@
                     </div>
                 </div>
             </div>
+
+<script>
+function enableEdit8() {
+    // Enable all textarea fields
+    document.querySelectorAll('#page8 textarea').forEach(textarea => {
+        textarea.disabled = false;
+        textarea.style.backgroundColor = 'white';
+    });
+    
+    // Enable all radio buttons
+    document.querySelectorAll('#page8 input[type="radio"]').forEach(radio => {
+        radio.disabled = false;
+    });
+
+    // Show save/cancel buttons, hide edit button
+    document.getElementById('editBtn8').style.display = 'none';
+    document.getElementById('saveBtn8').style.display = 'inline-block';
+    document.getElementById('cancelBtn8').style.display = 'inline-block';
+}
+
+function cancelEdit8() {
+    // Disable all textarea fields and restore gray background
+    document.querySelectorAll('#page8 textarea').forEach(textarea => {
+        textarea.disabled = true;
+        textarea.style.backgroundColor = 'lightgray';
+    });
+    
+    // Disable all radio buttons
+    document.querySelectorAll('#page8 input[type="radio"]').forEach(radio => {
+        radio.disabled = true;
+    });
+
+    // Show edit button, hide save/cancel buttons
+    document.getElementById('editBtn8').style.display = 'inline-block';
+    document.getElementById('saveBtn8').style.display = 'none';
+    document.getElementById('cancelBtn8').style.display = 'none';
+
+    // Reload the page to restore original values
+    window.location.reload();
+}
+
+function saveChanges8() {
+    const formId = {{ $form->id ?? 'null' }};
+    
+    if (!formId) {
+        showToast('Form ID not found', 'error');
+        return;
+    }
+
+    // Collect all form data
+    const formData = {};
+    
+    // Collect textarea data
+    document.querySelectorAll('#page8 textarea[name]').forEach(textarea => {
+        formData[textarea.name] = textarea.value;
+    });
+    
+    // Collect radio button data
+    const checkedRadio = document.querySelector('#page8 input[type="radio"][name="agree_with_reporting_officer"]:checked');
+    if (checkedRadio) {
+        formData['agree_with_reporting_officer'] = checkedRadio.value;
+    }
+
+    // Add form_id to the data
+    formData.form_id = formId;
+
+    // Show loading state
+    const saveBtn = document.getElementById('saveBtn8');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = 'Saving...';
+    saveBtn.disabled = true;
+
+    // Send AJAX request
+    fetch('/form/page8/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast('Page 8 data saved successfully!', 'success');
+            
+            // Disable all textareas and restore gray background
+            document.querySelectorAll('#page8 textarea').forEach(textarea => {
+                textarea.disabled = true;
+                textarea.style.backgroundColor = 'lightgray';
+            });
+            
+            // Disable all radio buttons
+            document.querySelectorAll('#page8 input[type="radio"]').forEach(radio => {
+                radio.disabled = true;
+            });
+            
+            // Show edit button, hide save/cancel buttons
+            document.getElementById('editBtn8').style.display = 'inline-block';
+            document.getElementById('saveBtn8').style.display = 'none';
+            document.getElementById('cancelBtn8').style.display = 'none';
+        } else {
+            showToast(data.message || 'Error saving data', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showToast('Error saving data', 'error');
+    })
+    .finally(() => {
+        // Restore button state
+        saveBtn.innerHTML = originalText;
+        saveBtn.disabled = false;
+    });
+}
+</script>
