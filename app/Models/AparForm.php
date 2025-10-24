@@ -47,6 +47,11 @@ class AparForm extends Model
         return $this->hasMany(AparFormData::class, 'form_id');
     }
 
+    public function page1Educations(): HasMany
+    {
+        return $this->hasMany(Page1Education::class, 'form_id');
+    }
+
     public function getFormDataBySection(string $section)
     {
         return $this->formData()->where('section', $section)->get()->pluck('field_value', 'field_name');

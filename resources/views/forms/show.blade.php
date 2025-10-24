@@ -197,6 +197,9 @@
         .page-number {
             display: block;
         }
+        .my-2{
+            margin: 10px 0;
+        }
     </style>
     <x-slot name="header">
         <div class="flex items-center gap-4">
