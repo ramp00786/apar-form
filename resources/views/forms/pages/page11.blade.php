@@ -192,12 +192,12 @@
                         </td>
                         <td class="text-center">
                             <input type="number" disabled value="{{ $parameter->marks_given }}"
-                                style="width: 80%; height: 30px; text-align: center; border: none; outline: none;"
+                                style="width: 80%; min-height: 150px; text-align: center; border: none; outline: none;"
                                 min="0" max="100">
                         </td>
                         <td class="text-center">
                             <input type="number" disabled value="{{ $parameter->max_marks }}"
-                                style="width: 80%; text-align: center; border: none; outline: none;" min="0"
+                                style="width: 80%; min-height: 150px; text-align: center; border: none; outline: none;" min="0"
                                 max="100">
                         </td>
                         @if ($isReportingOfficer)
@@ -277,12 +277,12 @@
                             </td>
                             <td class="text-center">
                                 <input type="number" disabled value=""
-                                    style="width: 80%; text-align: center; border: none; outline: none;"
+                                    style="width: 80%; min-height: 150px; text-align: center; border: none; outline: none;"
                                     min="0" max="100">
                             </td>
                             <td class="text-center">
                                 <input type="number" disabled value=""
-                                    style="width: 80%; text-align: center; border: none; outline: none;"
+                                    style="width: 80%; min-height: 150px; text-align: center; border: none; outline: none;"
                                     min="0" max="100">
                             </td>
                             @if ($isReportingOfficer)
