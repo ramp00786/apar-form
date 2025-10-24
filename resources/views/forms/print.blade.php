@@ -243,13 +243,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($formData['page1_educations'] ?? [] as $education)
+                    <tr>
+                        <td>{{ $education->qualification }}</td>
+                        <td>{{ $education->year }}</td>
+                        <td>{{ $education->university }}</td>
+                        <td>{{ $education->remark }}</td>
+                    </tr>
+                    @empty
+                    @for($i = 1; $i <= 7; $i++)
                     <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    @endfor
+                    @endforelse
+                    @if(isset($formData['page1_educations']) && $formData['page1_educations']->count() > 0 && $formData['page1_educations']->count() < 7)
+                        @for($i = $formData['page1_educations']->count() + 1; $i <= 7; $i++)
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        @endfor
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -267,9 +277,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($formData['page2_employment_details'] ?? [] as $employment)
+                    <tr>
+                        <td>{{ $employment->grade_post }}</td>
+                        <td>{{ $employment->lab_institute }}</td>
+                        <td>{{ $employment->duration }}</td>
+                        <td>{{ $employment->remark }}</td>
+                    </tr>
+                    @empty
+                    @for($i = 1; $i <= 3; $i++)
                     <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    @endfor
+                    @endforelse
+                    @if(isset($formData['page2_employment_details']) && $formData['page2_employment_details']->count() > 0 && $formData['page2_employment_details']->count() < 3)
+                        @for($i = $formData['page2_employment_details']->count() + 1; $i <= 3; $i++)
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        @endfor
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -287,9 +311,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($formData['page2_qualifications'] ?? [] as $qualification)
+                    <tr>
+                        <td>{{ $qualification->qualification }}</td>
+                        <td>{{ $qualification->year }}</td>
+                        <td>{{ $qualification->university_institute }}</td>
+                        <td>{{ $qualification->remark }}</td>
+                    </tr>
+                    @empty
+                    @for($i = 1; $i <= 3; $i++)
                     <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    @endfor
+                    @endforelse
+                    @if(isset($formData['page2_qualifications']) && $formData['page2_qualifications']->count() > 0 && $formData['page2_qualifications']->count() < 3)
+                        @for($i = $formData['page2_qualifications']->count() + 1; $i <= 3; $i++)
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        @endfor
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -299,7 +337,17 @@
             <strong>13. Any training undergone during the year of Report:</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 180px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 180px; padding: 10px;">
+                            @forelse($formData['page2_trainings'] ?? [] as $training)
+                                <div style="margin-bottom: 10px;">
+                                    {{ $training->training_details }}
+                                </div>
+                            @empty
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endforelse
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -317,10 +365,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($formData['page2_leave_details'] ?? [] as $index => $leave)
+                    <tr>
+                        <td>{{ $index + 1 }}.</td>
+                        <td>{{ $leave->nature_of_leave }}</td>
+                        <td>{{ $leave->period }}</td>
+                        <td>{{ $leave->no_of_days }}</td>
+                    </tr>
+                    @empty
                     <tr><td>1.</td><td>Maternity Leave</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                     <tr><td>2.</td><td>EL</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                     <tr><td>3.</td><td>Study Leave</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                     <tr><td>4.</td><td>CCL</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -338,7 +395,14 @@
             <strong>1. Brief description of duties.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 360px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 360px; padding: 10px;">
+                            {{ $formData['page3_duties']->duties_description ?? '' }}
+                            @if(!isset($formData['page3_duties']) || empty($formData['page3_duties']->duties_description))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -353,7 +417,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($formData['page3_projects'] ?? [] as $project)
+                    <tr>
+                        <td style="min-height: 180px; padding: 10px; vertical-align: top;">{{ $project->project_description }}</td>
+                        <td style="min-height: 180px; padding: 10px; vertical-align: top;">{{ $project->achievement_description }}</td>
+                    </tr>
+                    @empty
                     <tr><td style="min-height: 180px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td><td style="min-height: 180px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -363,7 +434,14 @@
             <strong>3. Please state briefly about major publications/reports/Technology transferred/patents filed/projects managed/social outreach activities/manpower trained not exceeding in 100 word.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 150px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 150px; padding: 10px;">
+                            {{ $formData['page4_data']->publications_reports ?? '' }}
+                            @if(!isset($formData['page4_data']) || empty($formData['page4_data']->publications_reports))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -372,7 +450,14 @@
             <strong>4. Specific contribution made to different mission of the Government like Atma Nirbhar Bharat, Make in India, Swachh Bharat etc., in bullets (50 words.)</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 90px; padding: 10px;">
+                            {{ $formData['page4_data']->government_missions ?? '' }}
+                            @if(!isset($formData['page4_data']) || empty($formData['page4_data']->government_missions))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -381,7 +466,14 @@
             <strong>5. Please brief about the work done/utilization of GeM portal for procurement of goods and services.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 90px; padding: 10px;">
+                            {{ $formData['page4_data']->gem_portal_work ?? '' }}
+                            @if(!isset($formData['page4_data']) || empty($formData['page4_data']->gem_portal_work))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -390,7 +482,14 @@
             <strong>6. Please state whether annual return on immovable property for the preceding calendar year was filed within the prescribed date i.e 31st January of the year following the calendar year. If not the date of filling the return should be given.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 90px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 90px; padding: 10px;">
+                            {{ $formData['page4_data']->property_return_filing ?? '' }}
+                            @if(!isset($formData['page4_data']) || empty($formData['page4_data']->property_return_filing))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -436,39 +535,39 @@
             <tbody>
                 <tr>
                     <td>(i) Accomplishment of planned work/work allotted</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['work_planned_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['work_planned_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['work_planned_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->work_planned_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->work_planned_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->work_planned_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(ii) Scientist & Technical Achievements</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['scientific_achievements_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['scientific_achievements_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['scientific_achievements_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->scientific_achievements_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->scientific_achievements_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->scientific_achievements_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(iii) Quality of output</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['quality_output_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['quality_output_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['quality_output_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->quality_output_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->quality_output_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->quality_output_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(iv) Analytical ability</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['analytical_ability_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['analytical_ability_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['analytical_ability_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->analytical_ability_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->analytical_ability_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->analytical_ability_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(v) Accomplishment of exceptional work</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['exceptional_work_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['exceptional_work_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['exceptional_work_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->exceptional_work_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->exceptional_work_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->exceptional_work_initial ?? '' }}</td>
                 </tr>
                 <tr style="background-color: #fff2cc;">
                     <td><strong>Overall Grading on "Work Output"</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_work_output_reporting'] ?? '' }}</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_work_output_reviewing'] ?? '' }}</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_work_output_initial'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_work_output_reporting ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_work_output_reviewing ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_work_output_initial ?? '' }}</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -488,45 +587,45 @@
             <tbody>
                 <tr>
                     <td>(i) Attitude to work</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['attitude_work_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['attitude_work_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['attitude_work_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->attitude_work_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->attitude_work_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->attitude_work_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(ii) Sense of Responsibility</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['sense_responsibility_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['sense_responsibility_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['sense_responsibility_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->sense_responsibility_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->sense_responsibility_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->sense_responsibility_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(iii) Maintenance of Discipline</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['maintenance_discipline_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['maintenance_discipline_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['maintenance_discipline_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->maintenance_discipline_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->maintenance_discipline_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->maintenance_discipline_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(iv) Communication skills</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['communication_skills_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['communication_skills_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['communication_skills_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->communication_skills_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->communication_skills_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->communication_skills_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(v) Leadership Qualities</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['leadership_qualities_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['leadership_qualities_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['leadership_qualities_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->leadership_qualities_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->leadership_qualities_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->leadership_qualities_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(vi) Capacity to work in team spirit</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['team_spirit_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['team_spirit_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['team_spirit_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->team_spirit_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->team_spirit_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->team_spirit_initial ?? '' }}</td>
                 </tr>
                 <tr style="background-color: #fff2cc;">
                     <td><strong>Overall Grading on "Personal Attributes"</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_personal_attributes_reporting'] ?? '' }}</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_personal_attributes_reviewing'] ?? '' }}</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_personal_attributes_initial'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_personal_attributes_reporting ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_personal_attributes_reviewing ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_personal_attributes_initial ?? '' }}</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -546,45 +645,45 @@
             <tbody>
                 <tr>
                     <td>(i) Scientific Capability</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['scientific_capability_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['scientific_capability_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['scientific_capability_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->scientific_capability_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->scientific_capability_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->scientific_capability_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(ii) S&T Foresight and Vision</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['st_foresight_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['st_foresight_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['st_foresight_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->st_foresight_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->st_foresight_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->st_foresight_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(iii) Decision making ability</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['decision_making_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['decision_making_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['decision_making_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->decision_making_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->decision_making_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->decision_making_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(iv) Innovation/Creativity</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['innovation_creativity_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['innovation_creativity_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['innovation_creativity_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->innovation_creativity_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->innovation_creativity_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->innovation_creativity_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(v) Technical Competence</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['technical_competence_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['technical_competence_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['technical_competence_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->technical_competence_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->technical_competence_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->technical_competence_initial ?? '' }}</td>
                 </tr>
                 <tr>
                     <td>(vi) New Initiative</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['new_initiative_reporting'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['new_initiative_reviewing'] ?? '' }}</td>
-                    <td style="text-align: center;">{{ $formData['part_3']['new_initiative_initial'] ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->new_initiative_reporting ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->new_initiative_reviewing ?? '' }}</td>
+                    <td style="text-align: center;">{{ $formData['page5_data']->new_initiative_initial ?? '' }}</td>
                 </tr>
                 <tr style="background-color: #fff2cc;">
                     <td><strong>Overall Grading on "Functional Competency"</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_functional_competency_reporting'] ?? '' }}</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_functional_competency_reviewing'] ?? '' }}</strong></td>
-                    <td style="text-align: center;"><strong>{{ $formData['part_3']['overall_functional_competency_initial'] ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_functional_competency_reporting ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_functional_competency_reviewing ?? '' }}</strong></td>
+                    <td style="text-align: center;"><strong>{{ $formData['page5_data']->overall_functional_competency_initial ?? '' }}</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -602,7 +701,7 @@
             <p><em>(Please comment on the Scientist accessibility to the public and responsiveness to their needs)</em></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 200px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['relation_with_public'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 200px; padding: 10px; border: 1px solid black;">{{ $formData['page6_data']->relation_with_public ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -612,7 +711,7 @@
             <p><em>(Please give recommendation for training with a view to further improving the effectiveness and capabilities of the Scientist)</em></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 150px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['training_recommendation'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 150px; padding: 10px; border: 1px solid black;">{{ $formData['page6_data']->training_recommendation ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -621,7 +720,7 @@
             <strong>3. State of Health</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 100px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['state_of_health'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 100px; padding: 10px; border: 1px solid black;">{{ $formData['page6_data']->state_of_health ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -636,7 +735,7 @@
             <p><em>(Please comment on the integrity of the Scientist)</em></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 100px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['integrity_assessment'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 100px; padding: 10px; border: 1px solid black;">{{ $formData['page7_data']->integrity_assessment ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -645,7 +744,7 @@
             <strong>5. Pen Picture by Reporting Officer (in about 100words) on the overall qualities of the Scientist including area of strengths and lesser strength extraordinary achievements, scientific & technical achievements (refer 3 of Part 2) and attitude towards weaker section.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 200px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['pen_picture_reporting'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 200px; padding: 10px; border: 1px solid black;">{{ $formData['page7_data']->pen_picture_reporting ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -654,7 +753,7 @@
             <strong>6. Overall numerical grading on the basis of weightage given in Section A, B and C in Part -3 of the Report.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px; border: 1px solid black;">{{ $formData['part_4']['overall_numerical_grading'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 120px; padding: 10px; border: 1px solid black;">{{ $formData['page7_data']->overall_numerical_grading ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -686,7 +785,7 @@
             <p>Length of Service under the Reviewing Officer.</p>
             <table class="form-table">
                 <tbody>
-                    <tr><td class="medium-text-area">{{ $formData['part_5']['reviewing_remarks'] ?? '' }}</td></tr>
+                    <tr><td class="medium-text-area">{{ $formData['page8_data']->reviewing_remarks ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -700,8 +799,8 @@
                     <td class="text-center">No</td>
                 </tr>
                 <tr>
-                    <td style="height: 30px; text-align: center;">{{ ($formData['part_5']['agree_with_reporting_officer'] ?? '') == 'yes' ? '✓' : '' }}</td>
-                    <td style="height: 30px; text-align: center;">{{ ($formData['part_5']['agree_with_reporting_officer'] ?? '') == 'no' ? '✓' : '' }}</td>
+                    <td style="height: 30px; text-align: center;">{{ ($formData['page8_data']->agree_with_reporting_officer ?? '') == 'yes' ? '✓' : '' }}</td>
+                    <td style="height: 30px; text-align: center;">{{ ($formData['page8_data']->agree_with_reporting_officer ?? '') == 'no' ? '✓' : '' }}</td>
                 </tr>
             </table>
         </div>
@@ -710,7 +809,7 @@
             <strong>3. In case of disagreement please specify the reason, is there anything you wish to modify or add.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td class="medium-text-area">{{ $formData['part_5']['disagreement_reason'] ?? '' }}</td></tr>
+                    <tr><td class="medium-text-area">{{ $formData['page8_data']->disagreement_reason ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -719,7 +818,7 @@
             <strong>4. Pen Picture by Reviewing Officer, please comment (in about 100words) on the overall qualities of the Scientist including area of strengths and lesser strength scientific & technical achievements and attitude towards weaker section.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td class="large-text-area">{{ $formData['part_5']['pen_picture_reviewing'] ?? '' }}</td></tr>
+                    <tr><td class="large-text-area">{{ $formData['page8_data']->pen_picture_reviewing ?? '' }}</td></tr>
                 </tbody>
             </table>
         </div>
@@ -728,7 +827,7 @@
             <strong>5. Overall numerical grading on the basis of weightage given in Section A, B and C in Part -3 the Report.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td class="large-text-area">{{ $formData['part_5']['overall_numerical_grading_reviewing'] ?? '' }}</td></tr>
+                    <tr><td class="large-text-area">{{ $formData['page8_data']->overall_numerical_grading_reviewing ?? '' }}</td></tr>
                 </tbody>
             </table>
             
@@ -771,21 +870,42 @@
             <p><strong>4. a. New Initiative taken:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 120px; padding: 10px;">
+                            {{ $formData['page9_data']->new_initiatives ?? '' }}
+                            @if(!isset($formData['page9_data']) || empty($formData['page9_data']->new_initiatives))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
             <p><strong>4. b. S&T content of the work done:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 120px; padding: 10px;">
+                            {{ $formData['page9_data']->st_content_work ?? '' }}
+                            @if(!isset($formData['page9_data']) || empty($formData['page9_data']->st_content_work))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
             <p><strong>4. c. Innovation content of the work done:</strong></p>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 120px; padding: 10px;">&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;</td></tr>
+                    <tr>
+                        <td style="min-height: 120px; padding: 10px;">
+                            {{ $formData['page9_data']->innovation_content_work ?? '' }}
+                            @if(!isset($formData['page9_data']) || empty($formData['page9_data']->innovation_content_work))
+                                &nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -811,8 +931,24 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse($formData['page10_data'] ?? [] as $index => $parameter)
                 <tr>
-                    <td style="text-align: center; vertical-align: top; padding: 8px;">1</td>
+                    <td style="text-align: center; vertical-align: top; padding: 8px;">{{ $index + 1 }}</td>
+                    <td style="vertical-align: top; padding: 8px;">
+                        <div><strong>Parameter:</strong> {{ $parameter->parameter_name }}</div>
+                        <div style="margin-top: 8px;"><strong>Sub Parameters:</strong></div>
+                        <div>a. {{ $parameter->sub_parameter_a }}</div>
+                        <div>b. {{ $parameter->sub_parameter_b }}</div>
+                        <div>c. {{ $parameter->sub_parameter_c }}</div>
+                        <div>d. {{ $parameter->sub_parameter_d }}</div>
+                        <div>e. {{ $parameter->sub_parameter_e }}</div>
+                    </td>
+                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">{{ $parameter->achievement_description }}</td>
+                </tr>
+                @empty
+                @for($i = 1; $i <= 5; $i++)
+                <tr>
+                    <td style="text-align: center; vertical-align: top; padding: 8px;">{{ $i }}</td>
                     <td style="vertical-align: top; padding: 8px;">
                         <div><strong>Parameter:</strong> ____________________</div>
                         <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
@@ -820,62 +956,29 @@
                         <div>b.</div>
                         <div>c.</div>
                         <div>d.</div>
-                        <div>e</div>
+                        <div>e.</div>
                     </td>
                     <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
                 </tr>
-                <tr>
-                    <td style="text-align: center; vertical-align: top; padding: 8px;">2</td>
-                    <td style="vertical-align: top; padding: 8px;">
-                        <div><strong>Parameter:</strong> ____________________</div>
-                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
-                        <div>a.</div>
-                        <div>b.</div>
-                        <div>c.</div>
-                        <div>d</div>
-                        <div>e</div>
-                    </td>
-                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center; vertical-align: top; padding: 8px;">3</td>
-                    <td style="vertical-align: top; padding: 8px;">
-                        <div><strong>Parameter:</strong> ____________________</div>
-                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
-                        <div>a.</div>
-                        <div>b.</div>
-                        <div>c.</div>
-                        <div>d</div>
-                        <div>e</div>
-                    </td>
-                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center; vertical-align: top; padding: 8px;">4</td>
-                    <td style="vertical-align: top; padding: 8px;">
-                        <div><strong>Parameter:</strong> ____________________</div>
-                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
-                        <div>a.</div>
-                        <div>b.</div>
-                        <div>c.</div>
-                        <div>d</div>
-                        <div>e</div>
-                    </td>
-                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center; vertical-align: top; padding: 8px;">5</td>
-                    <td style="vertical-align: top; padding: 8px;">
-                        <div><strong>Parameter:</strong> ____________________</div>
-                        <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
-                        <div>a.</div>
-                        <div>b.</div>
-                        <div>c.</div>
-                        <div>d</div>
-                        <div>e</div>
-                    </td>
-                    <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
-                </tr>
+                @endfor
+                @endforelse
+                @if(isset($formData['page10_data']) && $formData['page10_data']->count() > 0 && $formData['page10_data']->count() < 5)
+                    @for($i = $formData['page10_data']->count() + 1; $i <= 5; $i++)
+                    <tr>
+                        <td style="text-align: center; vertical-align: top; padding: 8px;">{{ $i }}</td>
+                        <td style="vertical-align: top; padding: 8px;">
+                            <div><strong>Parameter:</strong> ____________________</div>
+                            <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                            <div>a.</div>
+                            <div>b.</div>
+                            <div>c.</div>
+                            <div>d.</div>
+                            <div>e.</div>
+                        </td>
+                        <td style="vertical-align: top; padding: 8px; min-height: 120px;">&nbsp;</td>
+                    </tr>
+                    @endfor
+                @endif
             </tbody>
         </table>
 
@@ -906,7 +1009,13 @@
             <strong>1. Do you agree with the evaluation parameters suggested by the Officer?</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 80px; padding: 10px;">{{ $formData['part_b']['agree_evaluation'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 80px; padding: 10px;">
+                        @php
+                            $page11Data = $formData['page11_data'] ?? collect();
+                            $textRecord = $page11Data->whereNotNull('agree_evaluation')->first();
+                        @endphp
+                        {{ $textRecord->agree_evaluation ?? '' }}
+                    </td></tr>
                 </tbody>
             </table>
         </div>
@@ -915,7 +1024,13 @@
             <strong>2. Short summary of the innovative content of the work done</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 80px; padding: 10px;">{{ $formData['part_b']['innovative_summary'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 80px; padding: 10px;">
+                        @php
+                            $page11Data = $formData['page11_data'] ?? collect();
+                            $textRecord = $page11Data->whereNotNull('innovative_summary')->first();
+                        @endphp
+                        {{ $textRecord->innovative_summary ?? '' }}
+                    </td></tr>
                 </tbody>
             </table>
         </div>
@@ -924,7 +1039,13 @@
             <strong>3. Please also indicate the exceptional contribution of the Officer for which he can be considered under exceptionally meritorious category.</strong>
             <table class="form-table">
                 <tbody>
-                    <tr><td style="min-height: 80px; padding: 10px;">{{ $formData['part_b']['exceptional_contribution'] ?? '' }}</td></tr>
+                    <tr><td style="min-height: 80px; padding: 10px;">
+                        @php
+                            $page11Data = $formData['page11_data'] ?? collect();
+                            $textRecord = $page11Data->whereNotNull('exceptional_contribution')->first();
+                        @endphp
+                        {{ $textRecord->exceptional_contribution ?? '' }}
+                    </td></tr>
                 </tbody>
             </table>
         </div>
@@ -941,6 +1062,28 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $page11Data = $formData['page11_data'] ?? collect();
+                        $parametersWithMarks = $page11Data->whereNotNull('parameter_name')->where('parameter_name', '!=', '');
+                        $totalMarksObtained = $parametersWithMarks->sum('marks_given');
+                        $totalMaxMarks = $parametersWithMarks->sum('max_marks');
+                    @endphp
+                    @forelse($parametersWithMarks as $index => $parameter)
+                    <tr>
+                        <td class="text-center"><strong>{{ $index + 1 }}.</strong></td>
+                        <td>
+                            <div><strong>Parameter:</strong> {{ $parameter->parameter_name }}</div>
+                            <div style="margin-top: 8px;"><strong>Sub Parameters:</strong></div>
+                            <div>a. {{ $parameter->sub_parameter_a }}</div>
+                            <div>b. {{ $parameter->sub_parameter_b }}</div>
+                            <div>c. {{ $parameter->sub_parameter_c }}</div>
+                            <div>d. {{ $parameter->sub_parameter_d }}</div>
+                            <div>e. {{ $parameter->sub_parameter_e }}</div>
+                        </td>
+                        <td class="text-center">{{ $parameter->marks_given }}</td>
+                        <td class="text-center">{{ $parameter->max_marks }}</td>
+                    </tr>
+                    @empty
                     @for($i = 1; $i <= 5; $i++)
                     <tr>
                         <td class="text-center"><strong>{{ $i }}.</strong></td>
@@ -949,15 +1092,30 @@
                             <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
                             <div>a.</div><div>b.</div><div>c.</div><div>d.</div><div>e.</div>
                         </td>
-                        <td class="text-center">{{ $formData['part_b']['param' . $i . '_marks'] ?? '' }}</td>
-                        <td class="text-center">{{ $formData['part_b']['param' . $i . '_max_marks'] ?? '' }}</td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
                     </tr>
                     @endfor
+                    @endforelse
+                    @if($parametersWithMarks->count() > 0 && $parametersWithMarks->count() < 5)
+                        @for($i = $parametersWithMarks->count() + 1; $i <= 5; $i++)
+                        <tr>
+                            <td class="text-center"><strong>{{ $i }}.</strong></td>
+                            <td>
+                                <div><strong>Parameter:</strong> ___________________</div>
+                                <div style="margin-top: 8px;"><strong>Sub Parameter</strong></div>
+                                <div>a.</div><div>b.</div><div>c.</div><div>d.</div><div>e.</div>
+                            </td>
+                            <td class="text-center"></td>
+                            <td class="text-center"></td>
+                        </tr>
+                        @endfor
+                    @endif
                     <tr style="background-color: #fff2cc;">
                         <td></td>
                         <td><strong>Total Marks Obtained</strong></td>
-                        <td class="text-center"><strong>{{ $formData['part_b']['total_marks_obtained'] ?? '' }}</strong></td>
-                        <td class="text-center"><strong>{{ $formData['part_b']['total_max_marks'] ?? '' }}</strong></td>
+                        <td class="text-center"><strong>{{ $totalMarksObtained }}</strong></td>
+                        <td class="text-center"><strong>{{ $totalMaxMarks }}</strong></td>
                     </tr>
                 </tbody>
             </table>

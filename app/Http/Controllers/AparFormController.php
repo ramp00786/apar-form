@@ -114,7 +114,26 @@ class AparFormController extends Controller
             'part_4' => $form->getFormDataBySection('part_4'),
             'part_5' => $form->getFormDataBySection('part_5'),
             'part_b' => $form->getFormDataBySection('part_b'),
+            // Page specific data
+            'page1_educations' => \App\Models\Page1Education::where('form_id', $form->id)->get(),
+            'page2_qualifications' => \App\Models\Page2Qualification::where('form_id', $form->id)->get(),
+            'page2_employment_details' => \App\Models\Page2EmploymentDetail::where('form_id', $form->id)->get(),
+            'page2_trainings' => \App\Models\Page2Training::where('form_id', $form->id)->get(),
+            'page2_leave_details' => \App\Models\Page2LeaveDetail::where('form_id', $form->id)->get(),
+            'page3_duties' => \App\Models\Page3Duty::where('form_id', $form->id)->first(),
+            'page3_projects' => \App\Models\Page3Project::where('form_id', $form->id)->get(),
+            'page4_data' => \App\Models\Page4Data::where('form_id', $form->id)->first(),
+            'page5_data' => \App\Models\Page5Data::where('form_id', $form->id)->first(),
+            'page6_data' => \App\Models\Page6Data::where('form_id', $form->id)->first(),
+            'page7_data' => \App\Models\Page7Data::where('form_id', $form->id)->first(),
+            'page8_data' => \App\Models\Page8Data::where('form_id', $form->id)->first(),
+            'page9_data' => \App\Models\Page9Data::where('form_id', $form->id)->first(),
+            'page10_data' => \App\Models\Page10Data::where('form_id', $form->id)->get(),
+            'page11_data' => \App\Models\Page11Data::where('form_id', $form->id)->get(),
         ];
+
+        // For backwards compatibility and easier access
+        $formData['page5_data_array'] = $formData['page5_data'] ? $formData['page5_data']->toArray() : [];
 
         return view('forms.print', compact('form', 'formData'));
     }

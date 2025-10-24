@@ -320,6 +320,24 @@
                 @include('forms.pages.page13', ['form' => $form])
             </div>
 
+            <div class="bg-white/90 backdrop-blur-md shadow rounded mb-8 p-4 px-8" id="bottom-actions">
+                <!-- Print Form Button -->
+                <div class="text-center mt-10 mb-6">
+                    <a href="{{ route('forms.print', $form) }}" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-200">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2z"/></svg>
+                        Print Form
+                    </a>
+                </div>
+
+                <!-- Back to Dashboard -->
+                <div class="text-center mt-4">
+                    <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 bg-gradient-to-r from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-800 text-white font-semibold py-2 px-6 rounded-lg shadow transition-all duration-200">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+
         </div>
 
     </div>

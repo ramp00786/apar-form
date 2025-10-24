@@ -55,9 +55,11 @@ class Page11Controller extends Controller
             if (isset($validatedData['parameters']) && is_array($validatedData['parameters'])) {
                 foreach ($validatedData['parameters'] as $parameterData) {
                     // Only save if at least one field has data
-                    $hasData = collect($parameterData)->filter()->isNotEmpty();
+                    $hasData = collect($parameterData)->filter(function($value) {
+                        return !empty($value);
+                    });
                     
-                    if ($hasData) {
+                    if ($hasData->count() > 0) {
                         Page11Data::create([
                             'form_id' => $form->id,
                             'parameter_name' => $parameterData['parameter_name'] ?? null,

@@ -414,8 +414,6 @@
                 formData.parameters = parameters;
                 formData._token = '{{ csrf_token() }}';
 
-                console.log('Sending Page 11 data:', formData); // Debug log
-
                 // Send AJAX request
                 fetch('{{ route('forms.page11.update', $form->id) }}', {
                         method: 'POST',
@@ -427,7 +425,6 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Server response:', data); // Debug log
                         if (data.success) {
                             // Hide save and cancel buttons, show edit button
                             document.getElementById('editBtn11').style.display = 'inline-block';
