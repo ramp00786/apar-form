@@ -230,6 +230,11 @@
     <div class="py-12 bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
+            @php
+                $isReportingOfficer = auth()->user()->hasAparRole('reporting_officer');
+                $isReviewingOfficer = auth()->user()->hasAparRole('reviewing_officer');
+            @endphp
+
             {{-- pages header  --}}
 
             <div class="flex mb-4 gap-2 flex-wrap no-print justify-center" id="pageLinks">

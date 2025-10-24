@@ -6,6 +6,7 @@
         padding: 10px;
         resize: vertical;
     }
+
     #page9 textarea:disabled {
         background-color: lightgray;
     }
@@ -19,6 +20,7 @@
 
 <div class="bg-white/90 backdrop-blur-md shadow rounded mb-8 p-4 px-8" id="page9">
 
+    @if($isReviewingOfficer)
     {{-- Edit/Save/Cancel Buttons --}}
     <div class="flex justify-end py-4">
         <button id="editBtn9" class="bg-blue-500 text-white px-4 py-2 rounded" onclick="enableEdit9()">
@@ -30,8 +32,9 @@
             </svg>
             Edit
         </button>
-        
-        <button id="saveBtn9" class="bg-green-500 text-white px-4 py-2 rounded mr-2" style="display: none;" onclick="saveChanges9()">
+
+        <button id="saveBtn9" class="bg-green-500 text-white px-4 py-2 rounded mr-2" style="display: none;"
+            onclick="saveChanges9()">
             {{-- save svg --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -39,8 +42,9 @@
             </svg>
             Save
         </button>
-        
-        <button id="cancelBtn9" class="bg-gray-500 text-white px-4 py-2 rounded" style="display: none;" onclick="cancelEdit9()">
+
+        <button id="cancelBtn9" class="bg-gray-500 text-white px-4 py-2 rounded" style="display: none;"
+            onclick="cancelEdit9()">
             {{-- cancel svg --}}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -49,159 +53,177 @@
             Cancel
         </button>
     </div>
-                <!-- Page 9: ANNUAL WORK REPORT (Self-Assessment) -->
-                <div class="page-number">-9-</div>
-                <div class="part-title">ANNUAL WORK REPORT</div>
-                <div class="part-subtitle"><u>Self-Assessment by the officer reported upon</u></div>
-
-                <div class="section-list">
-                    <ol>
-                        <li><strong>Name: {{ $form->employee_name }}</strong></li>
-                        <li><strong>Designation: {{ $form->designation }}</strong></li>
-                        <li><strong>Area of S&T function: {{ $form->area_of_specialization ?: 'N/A' }}</strong></li>
-                    </ol>
+    @else
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
                 </div>
-
-                <div class="part-title"><u>Part A</u></div>
-
-                <div>
-                    <strong>4. One page summary of the scientific and technical elements in the work done during the
-                        financial Year:</strong>
-
-                    <table class="form-table">
-                        <tbody>
-                            <tr>
-                                <td style="height: 50px; padding: 10px; border: 1px solid black;">
-                                    <textarea disabled name="scientific_technical_summary" rows="2">{{ $page9Data->scientific_technical_summary ?? '' }}</textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <p><strong>4. a. New Initiative taken:</strong></p>
-                    <table class="form-table">
-                        <tbody>
-                            <tr>
-                                <td style="height: 150px; padding: 10px; border: 1px solid black;">
-                                    <textarea disabled name="new_initiatives" rows="5">{{ $page9Data->new_initiatives ?? '' }}</textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <p><strong>4. b. S&T content of the work done:</strong></p>
-                    <table class="form-table">
-                        <tbody>
-                            <tr>
-                                <td style="height: 150px; padding: 10px; border: 1px solid black;">
-                                    <textarea disabled name="st_content_work" rows="5">{{ $page9Data->st_content_work ?? '' }}</textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <p><strong>4. c. Innovation content of the work done:</strong></p>
-                    <table class="form-table">
-                        <tbody>
-                            <tr>
-                                <td style="height: 150px; padding: 10px; border: 1px solid black;">
-                                    <textarea disabled name="innovation_content_work" rows="5">{{ $page9Data->innovation_content_work ?? '' }}</textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="ml-3">
+                    <p class="text-sm">
+                        <strong>Access Restricted:</strong> You do not have permission to edit this section.
+                    </p>
                 </div>
             </div>
+        </div>
+    @endif
+    <!-- Page 9: ANNUAL WORK REPORT (Self-Assessment) -->
+    <div class="page-number">-9-</div>
+    <div class="part-title">ANNUAL WORK REPORT</div>
+    <div class="part-subtitle"><u>Self-Assessment by the officer reported upon</u></div>
 
+    <div class="section-list">
+        <ol>
+            <li><strong>Name: {{ $form->employee_name }}</strong></li>
+            <li><strong>Designation: {{ $form->designation }}</strong></li>
+            <li><strong>Area of S&T function: {{ $form->area_of_specialization ?: 'N/A' }}</strong></li>
+        </ol>
+    </div>
+
+    <div class="part-title"><u>Part A</u></div>
+
+    <div>
+        <strong>4. One page summary of the scientific and technical elements in the work done during the
+            financial Year:</strong>
+
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <td style="height: 50px; padding: 10px; border: 1px solid black;">
+                        <textarea disabled name="scientific_technical_summary" rows="2">{{ $page9Data->scientific_technical_summary ?? '' }}</textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>4. a. New Initiative taken:</strong></p>
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <td style="height: 150px; padding: 10px; border: 1px solid black;">
+                        <textarea disabled name="new_initiatives" rows="5">{{ $page9Data->new_initiatives ?? '' }}</textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>4. b. S&T content of the work done:</strong></p>
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <td style="height: 150px; padding: 10px; border: 1px solid black;">
+                        <textarea disabled name="st_content_work" rows="5">{{ $page9Data->st_content_work ?? '' }}</textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>4. c. Innovation content of the work done:</strong></p>
+        <table class="form-table">
+            <tbody>
+                <tr>
+                    <td style="height: 150px; padding: 10px; border: 1px solid black;">
+                        <textarea disabled name="innovation_content_work" rows="5">{{ $page9Data->innovation_content_work ?? '' }}</textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if($isReviewingOfficer)
 <script>
-function enableEdit9() {
-    // Enable all textarea fields
-    document.querySelectorAll('#page9 textarea').forEach(textarea => {
-        textarea.disabled = false;
-        textarea.style.backgroundColor = 'white';
-    });
+    function enableEdit9() {
+        // Enable all textarea fields
+        document.querySelectorAll('#page9 textarea').forEach(textarea => {
+            textarea.disabled = false;
+            textarea.style.backgroundColor = 'white';
+        });
 
-    // Show save/cancel buttons, hide edit button
-    document.getElementById('editBtn9').style.display = 'none';
-    document.getElementById('saveBtn9').style.display = 'inline-block';
-    document.getElementById('cancelBtn9').style.display = 'inline-block';
-}
-
-function cancelEdit9() {
-    // Disable all textarea fields and restore gray background
-    document.querySelectorAll('#page9 textarea').forEach(textarea => {
-        textarea.disabled = true;
-        textarea.style.backgroundColor = 'lightgray';
-    });
-
-    // Show edit button, hide save/cancel buttons
-    document.getElementById('editBtn9').style.display = 'inline-block';
-    document.getElementById('saveBtn9').style.display = 'none';
-    document.getElementById('cancelBtn9').style.display = 'none';
-
-    // Reload the page to restore original values
-    window.location.reload();
-}
-
-function saveChanges9() {
-    const formId = {{ $form->id ?? 'null' }};
-    
-    if (!formId) {
-        showToast('Form ID not found', 'error');
-        return;
+        // Show save/cancel buttons, hide edit button
+        document.getElementById('editBtn9').style.display = 'none';
+        document.getElementById('saveBtn9').style.display = 'inline-block';
+        document.getElementById('cancelBtn9').style.display = 'inline-block';
     }
 
-    // Collect all form data
-    const formData = {};
-    document.querySelectorAll('#page9 textarea[name]').forEach(textarea => {
-        formData[textarea.name] = textarea.value;
-    });
+    function cancelEdit9() {
+        // Disable all textarea fields and restore gray background
+        document.querySelectorAll('#page9 textarea').forEach(textarea => {
+            textarea.disabled = true;
+            textarea.style.backgroundColor = 'lightgray';
+        });
 
-    // Add form_id to the data
-    formData.form_id = formId;
+        // Show edit button, hide save/cancel buttons
+        document.getElementById('editBtn9').style.display = 'inline-block';
+        document.getElementById('saveBtn9').style.display = 'none';
+        document.getElementById('cancelBtn9').style.display = 'none';
 
-    // Show loading state
-    const saveBtn = document.getElementById('saveBtn9');
-    const originalText = saveBtn.innerHTML;
-    saveBtn.innerHTML = 'Saving...';
-    saveBtn.disabled = true;
+        // Reload the page to restore original values
+        window.location.reload();
+    }
 
-    // Send AJAX request
-    fetch('/form/page9/save', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showToast('Page 9 data saved successfully!', 'success');
-            
-            // Disable all textareas and restore gray background
-            document.querySelectorAll('#page9 textarea').forEach(textarea => {
-                textarea.disabled = true;
-                textarea.style.backgroundColor = 'lightgray';
-            });
-            
-            // Show edit button, hide save/cancel buttons
-            document.getElementById('editBtn9').style.display = 'inline-block';
-            document.getElementById('saveBtn9').style.display = 'none';
-            document.getElementById('cancelBtn9').style.display = 'none';
-        } else {
-            showToast(data.message || 'Error saving data', 'error');
+    function saveChanges9() {
+        const formId = {{ $form->id ?? 'null' }};
+
+        if (!formId) {
+            showToast('Form ID not found', 'error');
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showToast('Error saving data', 'error');
-    })
-    .finally(() => {
-        // Restore button state
-        saveBtn.innerHTML = originalText;
-        saveBtn.disabled = false;
-    });
-}
+
+        // Collect all form data
+        const formData = {};
+        document.querySelectorAll('#page9 textarea[name]').forEach(textarea => {
+            formData[textarea.name] = textarea.value;
+        });
+
+        // Add form_id to the data
+        formData.form_id = formId;
+
+        // Show loading state
+        const saveBtn = document.getElementById('saveBtn9');
+        const originalText = saveBtn.innerHTML;
+        saveBtn.innerHTML = 'Saving...';
+        saveBtn.disabled = true;
+
+        // Send AJAX request
+        fetch('/form/page9/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('Page 9 data saved successfully!', 'success');
+
+                    // Disable all textareas and restore gray background
+                    document.querySelectorAll('#page9 textarea').forEach(textarea => {
+                        textarea.disabled = true;
+                        textarea.style.backgroundColor = 'lightgray';
+                    });
+
+                    // Show edit button, hide save/cancel buttons
+                    document.getElementById('editBtn9').style.display = 'inline-block';
+                    document.getElementById('saveBtn9').style.display = 'none';
+                    document.getElementById('cancelBtn9').style.display = 'none';
+                } else {
+                    showToast(data.message || 'Error saving data', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Error saving data', 'error');
+            })
+            .finally(() => {
+                // Restore button state
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+            });
+    }
 </script>
+@endif
