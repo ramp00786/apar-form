@@ -10,7 +10,7 @@ class Page5Data extends Model
     /**
      * The table associated with the model.
      */
-    protected $table = 'apar_page5_data';
+    protected $table = 'page5_data';
 
     /**
      * The attributes that are mass assignable.

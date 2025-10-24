@@ -9,7 +9,7 @@ class Page9Data extends Model
 {
     use HasFactory;
 
-    protected $table = 'apar_page9_data';
+    protected $table = 'page9_data';
 
     protected $fillable = [
         'form_id',

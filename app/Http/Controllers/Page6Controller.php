@@ -11,7 +11,7 @@ class Page6Controller extends Controller
     {
         try {
             $validated = $request->validate([
-                'form_id' => 'required|exists:apar_apar_forms,id',
+                'form_id' => 'required|exists:forms,id',
                 'relation_with_public' => 'nullable|string',
                 'training_recommendation' => 'nullable|string',
                 'state_of_health' => 'nullable|string',

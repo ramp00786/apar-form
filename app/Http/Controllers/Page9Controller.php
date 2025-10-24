@@ -11,7 +11,7 @@ class Page9Controller extends Controller
     {
         try {
             $validated = $request->validate([
-                'form_id' => 'required|exists:apar_apar_forms,id',
+                'form_id' => 'required|exists:forms,id',
                 'scientific_technical_summary' => 'nullable|string',
                 'new_initiatives' => 'nullable|string',
                 'st_content_work' => 'nullable|string',
