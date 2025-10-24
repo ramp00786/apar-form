@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AparForm extends Model
 {
-    protected $table = 'forms';
+    protected $table = 'apar_forms';
 
     protected $fillable = [
         'employee_name',

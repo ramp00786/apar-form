@@ -11,7 +11,7 @@ class Page8Controller extends Controller
     {
         try {
             $validated = $request->validate([
-                'form_id' => 'required|exists:apar_forms,id',
+                'form_id' => 'required|exists:apar_apar_forms,id',
                 'reviewing_remarks' => 'nullable|string',
                 'agree_with_reporting_officer' => 'nullable|in:yes,no',
                 'disagreement_reason' => 'nullable|string',

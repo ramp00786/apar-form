@@ -11,7 +11,7 @@ class Page7Controller extends Controller
     {
         try {
             $validated = $request->validate([
-                'form_id' => 'required|exists:apar_forms,id',
+                'form_id' => 'required|exists:apar_apar_forms,id',
                 'integrity_assessment' => 'nullable|string',
                 'pen_picture_reporting' => 'nullable|string',
                 'overall_numerical_grading' => 'nullable|string',
