@@ -200,6 +200,20 @@
         .my-2{
             margin: 10px 0;
         }
+        /* when scrollup make it sticky */
+        #pageLinks{
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Toast notifications should appear above page links */
+        #toast-notification-11 {
+            z-index: 1000 !important;
+        }
     </style>
     <x-slot name="header">
         <div class="flex items-center gap-4">
@@ -215,52 +229,96 @@
 
     <div class="py-12 bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-screen">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- pages header  --}}
+
+            <div class="flex mb-4 gap-2 flex-wrap no-print justify-center" id="pageLinks">
+                <label for="" class="px-4 py-2">Pages: </label>
+                <a href="#main-page1" class="bg-blue-500 text-white px-4 py-2 rounded"> 1</a>
+                <a href="#main-page2" class="bg-blue-500 text-white px-4 py-2 rounded"> 2</a>
+                <a href="#main-page3" class="bg-blue-500 text-white px-4 py-2 rounded"> 3</a>
+                <a href="#main-page4" class="bg-blue-500 text-white px-4 py-2 rounded"> 4</a>
+                <a href="#main-page5" class="bg-blue-500 text-white px-4 py-2 rounded"> 5</a>
+                <a href="#main-page6" class="bg-blue-500 text-white px-4 py-2 rounded"> 6</a>
+                <a href="#main-page7" class="bg-blue-500 text-white px-4 py-2 rounded"> 7</a>
+                <a href="#main-page8" class="bg-blue-500 text-white px-4 py-2 rounded"> 8</a>
+                <a href="#main-page9" class="bg-blue-500 text-white px-4 py-2 rounded"> 9</a>
+                <a href="#main-page10" class="bg-blue-500 text-white px-4 py-2 rounded"> 10</a>
+                <a href="#main-page11" class="bg-blue-500 text-white px-4 py-2 rounded"> 11</a>
+                <a href="#main-page12" class="bg-blue-500 text-white px-4 py-2 rounded"> 12</a>
+                <a href="#main-page13" class="bg-blue-500 text-white px-4 py-2 rounded"> 13</a>
+            </div>
+            
             <!-- Employee Information (Part 1) -->
             {{-- page 1 --}}
-            @include('forms.pages.page1', ['form' => $form])
+            <div id="main-page1" class="py-8">
+                @include('forms.pages.page1', ['form' => $form])
+            </div>
 
             {{-- page 2 --}}
-            @include('forms.pages.page2', ['form' => $form])
+            <div id="main-page2" class="py-8">
+                @include('forms.pages.page2', ['form' => $form])
+            </div>
 
             {{-- page 3 --}}
-            @include('forms.pages.page3', ['form' => $form])
-
+            <div id="main-page3" class="py-8">
+                @include('forms.pages.page3', ['form' => $form])
+            </div>
 
             {{-- page 4 --}}
-            @include('forms.pages.page4', ['form' => $form])
+            <div id="main-page4" class="py-8">
+                @include('forms.pages.page4', ['form' => $form])
+            </div>
 
             {{-- page 5 --}}
-            @include('forms.pages.page5', ['form' => $form])
+            <div id="main-page5" class="py-8">
+                @include('forms.pages.page5', ['form' => $form])
+            </div>
 
             {{-- page 6 --}}
-            @include('forms.pages.page6', ['form' => $form])
+            <div id="main-page6" class="py-8">
+                @include('forms.pages.page6', ['form' => $form])
+            </div>
 
             {{-- page 7 --}}
-            @include('forms.pages.page7', ['form' => $form])
+            <div id="main-page7" class="py-8">
+                @include('forms.pages.page7', ['form' => $form])
+            </div>
 
             {{-- page 8 --}}
-            @include('forms.pages.page8', ['form' => $form])
+            <div id="main-page8" class="py-8">
+                @include('forms.pages.page8', ['form' => $form])
+            </div>
 
             {{-- page 9 --}}
-            @include('forms.pages.page9', ['form' => $form])
+            <div id="main-page9" class="py-8">
+                @include('forms.pages.page9', ['form' => $form])
+            </div>
 
             {{-- page 10 --}}
-            @include('forms.pages.page10', ['form' => $form])
+            <div id="main-page10" class="py-8">
+                @include('forms.pages.page10', ['form' => $form])
+            </div>
 
             {{-- page 11 --}}
-            @include('forms.pages.page11', ['form' => $form])
+            <div id="main-page11" class="py-8">
+                @include('forms.pages.page11', ['form' => $form])
+            </div>
 
             {{-- page 12 --}}
-            @include('forms.pages.page12', ['form' => $form])
-
+            <div id="main-page12" class="py-8">
+                @include('forms.pages.page12', ['form' => $form])
+            </div>
 
             {{-- page 13 --}}
-            @include('forms.pages.page13', ['form' => $form])
-
+            <div id="main-page13" class="py-8">
+                @include('forms.pages.page13', ['form' => $form])
+            </div>
 
         </div>
 
     </div>
+
 
     
 </x-app-layout>

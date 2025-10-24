@@ -179,14 +179,14 @@
                     document.getElementById('gemPortalWork').disabled = true;
                     document.getElementById('propertyReturnFiling').disabled = true;
                     
-                    showToast4('Page 4 data saved successfully!');
+                    showToast('Page 4 data saved successfully!');
                 } else {
-                    alert('Error saving changes: ' + data.message);
+                    showToast('Error saving changes: ' + data.message, 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while saving changes.');
+                showToast('An error occurred while saving changes.', 'error');
             });
         }
         
@@ -209,7 +209,7 @@
         }
 
         // Toast function for page 4
-        function showToast4(message, type = 'success') {
+        function showToast(message, type = 'success') {
             // Remove existing toast if any
             const existingToast = document.getElementById('toast-notification-4');
             if (existingToast) {

@@ -128,7 +128,7 @@
                     <table class="form-table">
                         <tbody>
                             <tr>
-                                <td class="large-text-area" style="height: 50px; padding: 10px; border: 1px solid black;">
+                                <td class="small-text-area" style="height: 50px; padding: 10px; border: 1px solid black;">
                                     <textarea disabled name="overall_numerical_grading_reviewing" rows="2">{{ $page8Data->overall_numerical_grading_reviewing ?? '' }}</textarea>
                                 </td>
                             </tr>

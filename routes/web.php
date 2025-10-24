@@ -12,6 +12,8 @@ use App\Http\Controllers\Page6Controller;
 use App\Http\Controllers\Page7Controller;
 use App\Http\Controllers\Page8Controller;
 use App\Http\Controllers\Page9Controller;
+use App\Http\Controllers\Page10Controller;
+use App\Http\Controllers\Page11Controller;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/form/page7/save', [Page7Controller::class, 'save'])->name('forms.page7.save');
     Route::post('/form/page8/save', [Page8Controller::class, 'save'])->name('forms.page8.save');
     Route::post('/form/page9/save', [Page9Controller::class, 'save'])->name('forms.page9.save');
+    Route::post('/forms/{form}/page10', [Page10Controller::class, 'update'])->name('forms.page10.update');
+    Route::post('/forms/{form}/page11', [Page11Controller::class, 'update'])->name('forms.page11.update');
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

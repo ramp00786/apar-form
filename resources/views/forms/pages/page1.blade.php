@@ -278,12 +278,12 @@
                     // alert('Changes saved successfully!');
                     showToast('Changes saved successfully!');
                 } else {
-                    alert('Error saving changes: ' + data.message);
+                    showToast('Error saving changes: ' + data.message, 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while saving changes.');
+                showToast('An error occurred while saving changes.', 'error');
             });
         }
         

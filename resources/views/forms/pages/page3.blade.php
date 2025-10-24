@@ -228,14 +228,14 @@
                         input.disabled = true;
                     });
                     
-                    showToast3('Page 3 data saved successfully!');
+                    showToast('Page 3 data saved successfully!');
                 } else {
-                    alert('Error saving changes: ' + data.message);
+                    showToast('Error saving changes: ' + data.message, 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while saving changes.');
+                showToast('An error occurred while saving changes.', 'error');
             });
         }
         
@@ -285,7 +285,7 @@
         }
 
         // Toast function for page 3
-        function showToast3(message, type = 'success') {
+        function showToast(message, type = 'success') {
             // Remove existing toast if any
             const existingToast = document.getElementById('toast-notification-3');
             if (existingToast) {
