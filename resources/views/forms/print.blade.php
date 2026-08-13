@@ -176,7 +176,7 @@
             padding-left: 5px;
         }
         .page-number{
-            display: none;
+            display: block;
         }
         .print-container input{
             border: none !important;
@@ -197,15 +197,20 @@
             resize: none !important;
             color: #000 !important;
             font-weight: 600 !important;
+            min-height: 100px !important;
+            overflow: hidden; /* hides scrollbar */
+          
         }
 
         /* p-4 px-8 */
         .p-4{
-            padding: 1rem !important;
+            padding-top: 1rem !important;
         }
         .px-8{
-            padding-left: 2rem !important;
-            padding-right: 2rem !important;
+            
+        }
+        .pt-4{
+            padding-top: 1rem !important;
         }
     </style>
 </head>
@@ -294,6 +299,8 @@
     </div>
 
     
+  
+
 </body>
 </html>
         

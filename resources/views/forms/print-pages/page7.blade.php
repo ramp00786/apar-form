@@ -68,7 +68,7 @@
             </tbody>
         </table>
     </div>
-
+    <div class="page-break"></div>
 
     {{-- Signature section --}}
     <div style="margin-top: 60px; ">

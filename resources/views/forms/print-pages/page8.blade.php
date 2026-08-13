@@ -89,7 +89,9 @@
         </table>
     </div>
 
-    <div>
+    <div class="page-break"></div>
+
+    <div class="pt-4">
         <strong>4. Pen Picture by Reviewing Officer, please comment (in about 100words) on the overall
             qualities of the Scientist including area of strengths and lesser strength scientific &
             technical achievements and attitude towards weaker section.</strong>

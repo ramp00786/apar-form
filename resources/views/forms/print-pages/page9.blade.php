@@ -43,7 +43,7 @@
         <table class="form-table">
             <tbody>
                 <tr>
-                    <td style="height: 50px; padding: 10px; border: 1px solid black;">
+                    <td style="min-height: 50px; padding: 10px; border: 1px solid black;">
                         <textarea disabled name="scientific_technical_summary" rows="2">{{ $page9Data->scientific_technical_summary ?? '' }}</textarea>
                     </td>
                 </tr>

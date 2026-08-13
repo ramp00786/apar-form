@@ -444,8 +444,9 @@ function saveChanges5() {
     saveBtn.innerHTML = 'Saving...';
     saveBtn.disabled = true;
 
-    // Send AJAX request
-    fetch('/form/page5/save', {
+    // Send AJAX request /form/page5/save
+    // {{ route('forms.page1.update', $form->id) }}
+    fetch('{{ route('forms.page5.save') }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

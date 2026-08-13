@@ -188,7 +188,7 @@
         saveBtn.disabled = true;
 
         // Send AJAX request
-        fetch('/form/page9/save', {
+        fetch('{{ route('forms.page9.save') }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

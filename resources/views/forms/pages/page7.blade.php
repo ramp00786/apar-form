@@ -168,7 +168,7 @@ function saveChanges7() {
     saveBtn.disabled = true;
 
     // Send AJAX request
-    fetch('/form/page7/save', {
+    fetch('{{ route('forms.page7.save') }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

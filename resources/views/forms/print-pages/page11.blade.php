@@ -87,7 +87,7 @@
         </table>
     </div>
     <div class="page-break"></div>
-    <div>
+    <div class="pt-4">
         <strong>4. Overall assessment of the scientific work</strong>
 
         <!-- Add More Button (only visible in edit mode for reporting officer) -->
